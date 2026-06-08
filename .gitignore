@@ -1,8 +1,39 @@
+# macOS
 .DS_Store
+
+# Virtual environments
 .venv/
+venv/
+env/
+
+# Python
 __pycache__/
-outputs/
-trashnet-clean/
+*.pyc
+*.pyo
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Training artifacts
 *.pth
 *.pt
 *.ckpt
+*.joblib
+
+# Outputs
+outputs/
+artifacts/
+work/
+
+# Local datasets
+data/raw/*
+!data/raw/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+
+# Existing local folders
+trashnet-clean/
