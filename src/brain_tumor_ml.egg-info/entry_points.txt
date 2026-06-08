@@ -1,0 +1,4 @@
+[console_scripts]
+brain-tumor-demo-data = brain_tumor_ml.demo_data:main
+brain-tumor-experiment = brain_tumor_ml.experiment:main
+brain-tumor-train = brain_tumor_ml.train:main

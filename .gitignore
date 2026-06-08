@@ -36,4 +36,6 @@ data/processed/*
 .idea/
 
 # Existing local folders
-trashnet-clean/
+trashnet-clean/0608/
+.venv/
+0608/
