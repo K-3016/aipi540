@@ -196,3 +196,11 @@ an attention visualization, not proof of clinically valid reasoning.
 5. Evaluate calibration and clinically relevant operating behavior.
 6. Test scanner, sequence, compression, and acquisition-quality shifts.
 7. Complete privacy, security, bias, regulatory, and prospective-validation reviews.
+
+## Attribution
+
+This project was developed with assistance from OpenAI ChatGPT for software engineering support, code generation, testing, and documentation. All generated content was reviewed, modified, and validated by the author.
+
+Additional references:
+- PyTorch Documentation: https://pytorch.org/docs/stable/
+- scikit-learn Documentation: https://scikit-learn.org/stable/
