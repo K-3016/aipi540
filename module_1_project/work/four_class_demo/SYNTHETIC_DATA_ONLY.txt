@@ -1,1 +1,0 @@
-These images are artificial and are only for software smoke testing. They must not be used to claim medical model performance.
