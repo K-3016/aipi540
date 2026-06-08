@@ -1,0 +1,227 @@
+[
+  {
+    "model": "naive_baseline",
+    "noise_sigma": 0.0,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "precision_invasive": 0.5,
+    "recall_sensitivity_invasive": 1.0,
+    "specificity_benign": 0.0,
+    "f1_invasive": 0.6666666666666666,
+    "roc_auc": 0.5,
+    "average_precision": 0.5,
+    "brier_score": 0.25,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "n_samples": 6
+  },
+  {
+    "model": "classical_logistic_regression",
+    "noise_sigma": 0.0,
+    "accuracy": 1.0,
+    "balanced_accuracy": 1.0,
+    "precision_invasive": 1.0,
+    "recall_sensitivity_invasive": 1.0,
+    "specificity_benign": 1.0,
+    "f1_invasive": 1.0,
+    "roc_auc": 1.0,
+    "average_precision": 1.0,
+    "brier_score": 0.04482273473812153,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        3,
+        0
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "n_samples": 6
+  },
+  {
+    "model": "deep_cnn",
+    "noise_sigma": 0.0,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "precision_invasive": 0.5,
+    "recall_sensitivity_invasive": 1.0,
+    "specificity_benign": 0.0,
+    "f1_invasive": 0.6666666666666666,
+    "roc_auc": 1.0,
+    "average_precision": 1.0,
+    "brier_score": 0.24914089582141705,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "n_samples": 6
+  },
+  {
+    "model": "naive_baseline",
+    "noise_sigma": 0.1,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "precision_invasive": 0.5,
+    "recall_sensitivity_invasive": 1.0,
+    "specificity_benign": 0.0,
+    "f1_invasive": 0.6666666666666666,
+    "roc_auc": 0.5,
+    "average_precision": 0.5,
+    "brier_score": 0.25,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "n_samples": 6
+  },
+  {
+    "model": "classical_logistic_regression",
+    "noise_sigma": 0.1,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "precision_invasive": 0.5,
+    "recall_sensitivity_invasive": 1.0,
+    "specificity_benign": 0.0,
+    "f1_invasive": 0.6666666666666666,
+    "roc_auc": 1.0,
+    "average_precision": 1.0,
+    "brier_score": 0.4964413420885248,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "n_samples": 6
+  },
+  {
+    "model": "deep_cnn",
+    "noise_sigma": 0.1,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "precision_invasive": 0.5,
+    "recall_sensitivity_invasive": 1.0,
+    "specificity_benign": 0.0,
+    "f1_invasive": 0.6666666666666666,
+    "roc_auc": 1.0,
+    "average_precision": 1.0,
+    "brier_score": 0.24938137910015357,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "n_samples": 6
+  },
+  {
+    "model": "naive_baseline",
+    "noise_sigma": 0.2,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "precision_invasive": 0.5,
+    "recall_sensitivity_invasive": 1.0,
+    "specificity_benign": 0.0,
+    "f1_invasive": 0.6666666666666666,
+    "roc_auc": 0.5,
+    "average_precision": 0.5,
+    "brier_score": 0.25,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "n_samples": 6
+  },
+  {
+    "model": "classical_logistic_regression",
+    "noise_sigma": 0.2,
+    "accuracy": 0.6666666666666666,
+    "balanced_accuracy": 0.6666666666666666,
+    "precision_invasive": 1.0,
+    "recall_sensitivity_invasive": 0.3333333333333333,
+    "specificity_benign": 1.0,
+    "f1_invasive": 0.5,
+    "roc_auc": 1.0,
+    "average_precision": 1.0,
+    "brier_score": 0.21003253023983234,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        3,
+        0
+      ],
+      [
+        2,
+        1
+      ]
+    ],
+    "n_samples": 6
+  },
+  {
+    "model": "deep_cnn",
+    "noise_sigma": 0.2,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "precision_invasive": 0.5,
+    "recall_sensitivity_invasive": 1.0,
+    "specificity_benign": 0.0,
+    "f1_invasive": 0.6666666666666666,
+    "roc_auc": 0.888888888888889,
+    "average_precision": 0.9166666666666665,
+    "brier_score": 0.24973247195413784,
+    "threshold": 0.5,
+    "confusion_matrix": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "n_samples": 6
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "task": "binary_image_classification",
+  "class_names": [
+    "benign",
+    "invasive"
+  ],
+  "positive_class": "invasive",
+  "deployed_model": "deep_cnn",
+  "image_size": 64,
+  "seed": 42,
+  "split_counts": {
+    "train": 24,
+    "val": 6,
+    "test": 6
+  },
+  "patient_grouping": true,
+  "patient_id_regex": "(patient_\\d+)",
+  "medical_use": "research_and_education_only"
+}
