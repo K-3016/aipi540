@@ -1,0 +1,317 @@
+{
+  "naive_baseline": {
+    "accuracy": 0.25,
+    "balanced_accuracy": 0.25,
+    "macro_precision": 0.0625,
+    "macro_recall": 0.25,
+    "macro_f1": 0.1,
+    "weighted_f1": 0.1,
+    "roc_auc_ovr_macro": 0.5,
+    "log_loss": 1.3862943611198906,
+    "multiclass_brier_score": 0.75,
+    "confusion_matrix": [
+      [
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        4,
+        0,
+        0,
+        0
+      ]
+    ],
+    "per_class": {
+      "glioma": {
+        "precision": 0.25,
+        "sensitivity_recall": 1.0,
+        "specificity": 0.0,
+        "f1": 0.4,
+        "support": 4
+      },
+      "meningioma": {
+        "precision": 0.0,
+        "sensitivity_recall": 0.0,
+        "specificity": 1.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "pituitary": {
+        "precision": 0.0,
+        "sensitivity_recall": 0.0,
+        "specificity": 1.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "normal": {
+        "precision": 0.0,
+        "sensitivity_recall": 0.0,
+        "specificity": 1.0,
+        "f1": 0.0,
+        "support": 4
+      }
+    },
+    "confidence_triage": [
+      {
+        "threshold": 0.5,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      },
+      {
+        "threshold": 0.6,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      },
+      {
+        "threshold": 0.7,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      },
+      {
+        "threshold": 0.8,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      },
+      {
+        "threshold": 0.9,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      }
+    ],
+    "n_samples": 16
+  },
+  "classical_logistic_regression": {
+    "accuracy": 0.9375,
+    "balanced_accuracy": 0.9375,
+    "macro_precision": 0.95,
+    "macro_recall": 0.9375,
+    "macro_f1": 0.9365079365079365,
+    "weighted_f1": 0.9365079365079365,
+    "roc_auc_ovr_macro": 1.0,
+    "log_loss": 0.21609857823594672,
+    "multiclass_brier_score": 0.09190866980181864,
+    "confusion_matrix": [
+      [
+        3,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        4,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        4,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        4
+      ]
+    ],
+    "per_class": {
+      "glioma": {
+        "precision": 1.0,
+        "sensitivity_recall": 0.75,
+        "specificity": 1.0,
+        "f1": 0.8571428571428571,
+        "support": 4
+      },
+      "meningioma": {
+        "precision": 1.0,
+        "sensitivity_recall": 1.0,
+        "specificity": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "pituitary": {
+        "precision": 1.0,
+        "sensitivity_recall": 1.0,
+        "specificity": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "normal": {
+        "precision": 0.8,
+        "sensitivity_recall": 1.0,
+        "specificity": 0.9166666666666666,
+        "f1": 0.8888888888888888,
+        "support": 4
+      }
+    },
+    "confidence_triage": [
+      {
+        "threshold": 0.5,
+        "coverage": 1.0,
+        "retained_cases": 16,
+        "review_cases": 0,
+        "selective_accuracy": 0.9375
+      },
+      {
+        "threshold": 0.6,
+        "coverage": 0.9375,
+        "retained_cases": 15,
+        "review_cases": 1,
+        "selective_accuracy": 1.0
+      },
+      {
+        "threshold": 0.7,
+        "coverage": 0.9375,
+        "retained_cases": 15,
+        "review_cases": 1,
+        "selective_accuracy": 1.0
+      },
+      {
+        "threshold": 0.8,
+        "coverage": 0.875,
+        "retained_cases": 14,
+        "review_cases": 2,
+        "selective_accuracy": 1.0
+      },
+      {
+        "threshold": 0.9,
+        "coverage": 0.75,
+        "retained_cases": 12,
+        "review_cases": 4,
+        "selective_accuracy": 1.0
+      }
+    ],
+    "n_samples": 16
+  },
+  "deep_cnn": {
+    "accuracy": 0.25,
+    "balanced_accuracy": 0.25,
+    "macro_precision": 0.0625,
+    "macro_recall": 0.25,
+    "macro_f1": 0.1,
+    "weighted_f1": 0.1,
+    "roc_auc_ovr_macro": 0.8697916666666666,
+    "log_loss": 1.3496069039043384,
+    "multiclass_brier_score": 0.7292359781174123,
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        4
+      ]
+    ],
+    "per_class": {
+      "glioma": {
+        "precision": 0.0,
+        "sensitivity_recall": 0.0,
+        "specificity": 1.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "meningioma": {
+        "precision": 0.0,
+        "sensitivity_recall": 0.0,
+        "specificity": 1.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "pituitary": {
+        "precision": 0.0,
+        "sensitivity_recall": 0.0,
+        "specificity": 1.0,
+        "f1": 0.0,
+        "support": 4
+      },
+      "normal": {
+        "precision": 0.25,
+        "sensitivity_recall": 1.0,
+        "specificity": 0.0,
+        "f1": 0.4,
+        "support": 4
+      }
+    },
+    "confidence_triage": [
+      {
+        "threshold": 0.5,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      },
+      {
+        "threshold": 0.6,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      },
+      {
+        "threshold": 0.7,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      },
+      {
+        "threshold": 0.8,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      },
+      {
+        "threshold": 0.9,
+        "coverage": 0.0,
+        "retained_cases": 0,
+        "review_cases": 16,
+        "selective_accuracy": null
+      }
+    ],
+    "n_samples": 16
+  }
+}

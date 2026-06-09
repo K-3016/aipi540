@@ -111,6 +111,14 @@ def _train_from_args(args: argparse.Namespace) -> None:
             f"{model_name}: balanced_accuracy={metrics['balanced_accuracy']:.3f}, "
             f"macro_f1={metrics['macro_f1']:.3f}"
         )
+    if (
+        results["deep_cnn"]["balanced_accuracy"]
+        <= results["naive_baseline"]["balanced_accuracy"]
+    ):
+        print(
+            "WARNING: The CNN did not beat the naive baseline. "
+            "Do not deploy this checkpoint; train for more epochs and inspect metrics.json."
+        )
 
 
 if __name__ == "__main__":

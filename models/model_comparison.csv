@@ -1,0 +1,4 @@
+model,accuracy,precision,recall,f1_score,roc_auc
+naive_baseline,0.25,0.0625,0.25,0.1,0.5
+classical_logistic_regression,0.9375,0.95,0.9375,0.9365079365079365,1.0
+deep_cnn,0.25,0.0625,0.25,0.1,0.8697916666666666

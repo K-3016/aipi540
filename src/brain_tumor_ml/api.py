@@ -120,6 +120,7 @@ def index() -> str:
           .bar { height: 7px; background: #26364a; border-radius: 10px; overflow: hidden; }
           .bar span { display: block; height: 100%; background: #7db5ff; }
           .warning { margin-top: 22px; padding: 14px; color: #ffd7a3; background: #382713; border-radius: 12px; }
+          .review { margin: 14px 0; padding: 12px; color: #ffe0a8; background: #3a2915; border-radius: 10px; }
           .hidden { display: none; }
           @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
         </style>
@@ -154,6 +155,8 @@ def index() -> str:
                 </div>
                 <div class="label">Prediction</div>
                 <div id="prediction" class="prediction"></div>
+                <div id="review" class="review hidden">Low-confidence result. Treat this case as
+                  uncertain and review it manually.</div>
                 <div class="label">Confidence: <span id="confidence"></span></div>
                 <div class="confidence-track"><div id="confidence-fill" class="confidence-fill"></div></div>
                 <div class="label">Class probabilities</div>
@@ -186,6 +189,7 @@ def index() -> str:
             document.querySelector("#results").classList.remove("hidden");
             document.querySelector("#heatmap").src = `data:image/png;base64,${payload.grad_cam_png_base64}`;
             document.querySelector("#prediction").textContent = payload.predicted_class;
+            document.querySelector("#review").classList.toggle("hidden", !payload.review_recommended);
             const confidence = Math.round(payload.confidence * 100);
             document.querySelector("#confidence").textContent = `${confidence}%`;
             document.querySelector("#confidence-fill").style.width = `${confidence}%`;

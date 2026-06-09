@@ -113,10 +113,13 @@ python main.py pipeline \
   --data-dir data/processed/demo \
   --patient-id-regex '(patient_\d+)' \
   --image-size 64 \
-  --epochs 5
+  --epochs 15
 ```
 
 Synthetic data only verifies that the software works. Do not use its scores as medical results.
+Very short CNN runs can collapse to one class. Check `models/model_comparison.csv` before opening
+the app; the CNN should clearly outperform the 25% balanced-accuracy naive baseline.
+
 
 ## Run With Real MRI Data
 
