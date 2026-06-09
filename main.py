@@ -4,11 +4,7 @@ import argparse
 import os
 from pathlib import Path
 
-import uvicorn
-
 from brain_tumor_ml.demo_data import generate_demo_data
-from brain_tumor_ml.experiment import run_experiment
-from brain_tumor_ml.train import run_training
 
 
 def main() -> None:
@@ -23,16 +19,17 @@ def main() -> None:
     train = subparsers.add_parser("train", help="Train and evaluate all three required models.")
     _add_training_arguments(train)
 
-    experiment = subparsers.add_parser("experiment", help="Run Gaussian-noise robustness testing.")
+    experiment = subparsers.add_parser(
+        "experiment", help="Compare CNN training with and without data augmentation."
+    )
     experiment.add_argument("--model-dir", type=Path, default=Path("models"))
     experiment.add_argument("--output-dir", type=Path, default=Path("data/outputs"))
-    experiment.add_argument(
-        "--noise-levels", type=float, nargs="+", default=[0.0, 0.05, 0.1, 0.2]
-    )
+    experiment.add_argument("--epochs", type=int, default=5)
+    experiment.add_argument("--batch-size", type=int, default=16)
     experiment.add_argument("--seed", type=int, default=42)
 
     pipeline = subparsers.add_parser(
-        "pipeline", help="Train all models and run the robustness experiment."
+        "pipeline", help="Train all models and run the augmentation experiment."
     )
     _add_training_arguments(pipeline)
     pipeline.add_argument("--report-dir", type=Path, default=Path("data/outputs"))
@@ -50,18 +47,31 @@ def main() -> None:
     elif args.command == "train":
         _train_from_args(args)
     elif args.command == "experiment":
+        from brain_tumor_ml.experiment import run_experiment
+
         run_experiment(
             args.model_dir,
             args.output_dir,
-            tuple(args.noise_levels),
+            epochs=args.epochs,
+            batch_size=args.batch_size,
             seed=args.seed,
         )
-        print(f"Wrote robustness results to {args.output_dir}.")
+        print(f"Wrote augmentation experiment results to {args.output_dir}.")
     elif args.command == "pipeline":
+        from brain_tumor_ml.experiment import run_experiment
+
         _train_from_args(args)
-        run_experiment(args.model_dir, args.report_dir, seed=args.seed)
-        print(f"Wrote robustness results to {args.report_dir}.")
+        run_experiment(
+            args.model_dir,
+            args.report_dir,
+            epochs=args.epochs,
+            batch_size=args.batch_size,
+            seed=args.seed,
+        )
+        print(f"Wrote augmentation experiment results to {args.report_dir}.")
     elif args.command == "serve":
+        import uvicorn
+
         os.environ["BRAIN_TUMOR_ARTIFACT_DIR"] = str(args.model_dir)
         uvicorn.run(
             "brain_tumor_ml.api:app",
@@ -79,12 +89,11 @@ def _add_training_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--epochs", type=int, default=15)
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--architecture", choices=("small_cnn", "resnet18"), default="small_cnn")
-    parser.add_argument("--pretrained", action="store_true")
-    parser.add_argument("--triage-confidence-threshold", type=float, default=0.7)
 
 
 def _train_from_args(args: argparse.Namespace) -> None:
+    from brain_tumor_ml.train import run_training
+
     results = run_training(
         data_dir=args.data_dir,
         output_dir=args.model_dir,
@@ -93,9 +102,9 @@ def _train_from_args(args: argparse.Namespace) -> None:
         epochs=args.epochs,
         batch_size=args.batch_size,
         seed=args.seed,
-        architecture=args.architecture,
-        pretrained=args.pretrained,
-        triage_confidence_threshold=args.triage_confidence_threshold,
+        architecture="small_cnn",
+        pretrained=False,
+        report_dir=getattr(args, "report_dir", Path("data/outputs")),
     )
     for model_name, metrics in results.items():
         print(

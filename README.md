@@ -1,81 +1,64 @@
-# Explainable Deep Learning for Brain Tumor MRI Classification
+# Explainable Brain Tumor MRI Classification
 
-A reproducible computer-vision project that classifies brain MRI images as `glioma`,
-`meningioma`, `pituitary`, or `normal`. It includes a naive baseline, classical machine
-learning, deep learning, Grad-CAM explanations, confidence-based triage, robustness testing,
-and a FastAPI web interface.
+This project classifies a brain MRI image as `glioma`, `meningioma`, `pituitary`, or `normal`.
+Its novel component is an explainable prediction app that shows the predicted class, confidence,
+class probabilities, and a Grad-CAM heatmap.
 
-> **Research and education only.** This software is not a medical device and must not be used
-> to diagnose, triage, or treat a patient.
+> **Not for clinical diagnosis.** This is an educational computer-vision project.
 
-## Repository Structure
+## Rubric Coverage
 
-```text
-├── README.md
-├── requirements.txt
-├── Makefile
-├── setup.py
-├── main.py
-├── scripts
-│   ├── make_dataset.py
-│   ├── build_features.py
-│   └── model.py
-├── models
-│   └── .gitkeep
-├── data
-│   ├── raw
-│   ├── processed
-│   └── outputs
-├── notebooks
-├── src
-│   └── brain_tumor_ml
-├── tests
-└── .gitignore
-```
+### Three Models
 
-The required assignment-facing structure is at the repository root. Reusable implementation
-code remains in `src/brain_tumor_ml/`, and automated tests remain in `tests/`.
-
-## Requirement Map
-
-| Requirement | Implementation | Location |
+| Approach | Implementation | Location |
 |---|---|---|
-| Naive baseline | Prior classifier | `src/brain_tumor_ml/training.py` |
-| Classical ML | Handcrafted features and logistic regression | `scripts/build_features.py`, `src/brain_tumor_ml/features.py` |
-| Deep learning | Compact CNN or ResNet18 transfer learning | `scripts/model.py`, `src/brain_tumor_ml/models.py` |
-| Focused experiment | Gaussian-noise robustness for all models | `src/brain_tumor_ml/experiment.py` |
-| Explainability | Grad-CAM overlay | `src/brain_tumor_ml/explainability.py` |
-| Deployment | Upload UI and JSON API | `main.py serve`, `src/brain_tumor_ml/api.py` |
+| Naive baseline | Most-common-class classifier | `src/brain_tumor_ml/training.py::fit_baseline` |
+| Classical ML | Logistic regression with intensity, histogram, edge, and thumbnail features | `src/brain_tumor_ml/features.py`, `fit_classical` |
+| Deep learning | Small convolutional neural network with augmentation | `src/brain_tumor_ml/models.py::SmallCNN`, `fit_deep` |
 
-All three approaches use the same untouched, patient-grouped test split.
+All models use the same patient-grouped test set. The CNN is the deployed model.
 
-## Setup
+### Focused Experiment
 
-Python 3.10 or newer is required.
+The experiment compares the same CNN:
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python3 scripts/make_dataset.py
-pytest -q
-```
+1. Without data augmentation.
+2. With random flips, rotations, and small translations.
 
-`setup.py` provides compatibility with standard editable installation:
+The split, architecture, seed, image size, epochs, and batch size remain fixed. Results include
+accuracy, macro precision, macro recall, and macro F1.
 
-```bash
-pip install -e .
-```
+Files:
 
-The Makefile combines installation and dataset-folder setup:
+- Code: `src/brain_tumor_ml/experiment.py`
+- Table: `data/outputs/augmentation_experiment.csv`
+- Explanation: `data/outputs/augmentation_experiment.json`
+- Figure: `data/outputs/augmentation_experiment.png`
 
-```bash
-make setup
-```
+### Evaluation And Error Analysis
 
-## Dataset
+Training reports accuracy, precision, recall, F1, confusion matrices, and multiclass ROC-AUC.
+Recall is emphasized because missed tumor classes can be especially harmful in medical imaging.
 
-Place de-identified images into:
+Outputs:
+
+- `models/model_comparison.csv`
+- `models/metrics.json`
+- `data/outputs/confusion_matrices.png`
+- `data/outputs/error_analysis/error_analysis.csv`
+- `data/outputs/error_analysis/images/`
+
+The error-analysis report selects up to five incorrect CNN predictions. For each case it records
+the true label, predicted label, confidence, possible reason, suggested improvement, and an
+annotated copy of the image. If the test set contains fewer than five errors, all available
+errors are reported rather than inventing mistakes.
+
+## Dataset Preparation
+
+Use a public, appropriately licensed brain MRI dataset, for example a Kaggle brain tumor MRI
+classification dataset. Download it yourself after accepting its license and terms.
+
+Organize the images as:
 
 ```text
 data/raw/
@@ -85,118 +68,104 @@ data/raw/
 └── normal/
 ```
 
-PNG, JPEG, BMP, and TIFF are supported. Folder names define labels. Review the source dataset's
-license, label definitions, and privacy conditions before use.
+The pipeline then:
 
-Multiple slices from one patient must not cross train, validation, and test splits. Pass a
-regular expression that extracts patient ID from each filename:
+- discovers images from the four folders;
+- creates patient-grouped train, validation, and test splits;
+- resizes images;
+- converts them to grayscale;
+- normalizes pixel values;
+- applies augmentation to CNN training images.
+
+Use `--patient-id-regex` when filenames contain patient IDs. This prevents images from one
+patient appearing in multiple splits.
+
+## Setup In VS Code
+
+Open the repository folder and run:
 
 ```bash
-python3 main.py train \
-  --data-dir data/raw \
-  --model-dir models \
-  --patient-id-regex '(patient_\d+)'
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-Without `--patient-id-regex`, each image stem is treated as a separate patient. For a real MRI
-dataset with multiple images per person, always provide patient grouping.
+On Windows PowerShell:
 
-The repository does not automatically redistribute a medical dataset. Obtain an appropriately
-licensed, de-identified dataset and document its source and license. `scripts/make_dataset.py`
-creates the required class folders.
+```powershell
+.venv\Scripts\Activate.ps1
+```
 
-## Run The Pipeline
-
-For a software-only smoke test, generate artificial images:
+If both `(.venv)` and `(base)` appear on macOS, deactivate Conda first:
 
 ```bash
-python3 main.py demo-data --samples-per-class 18
-python3 main.py pipeline \
+conda deactivate
+source .venv/bin/activate
+```
+
+## Quick Test With Synthetic Data
+
+```bash
+python main.py demo-data --samples-per-class 30
+
+python main.py pipeline \
   --data-dir data/processed/demo \
-  --model-dir models \
-  --report-dir data/outputs \
   --patient-id-regex '(patient_\d+)' \
   --image-size 64 \
-  --epochs 3
+  --epochs 5
 ```
 
-Synthetic metrics only verify that the software works. They have no clinical meaning.
+Synthetic data only verifies that the software works. Do not use its scores as medical results.
 
-## Deep Learning Options
+## Run With Real MRI Data
 
-The CPU-friendly baseline CNN is the default:
-
-```bash
-python3 main.py train --data-dir data/raw --model-dir models
-```
-
-Use ResNet18 transfer learning when internet access is available for the initial ImageNet weight
-download:
+Train and evaluate all three models:
 
 ```bash
-python3 main.py train \
+python main.py train \
   --data-dir data/raw \
-  --model-dir models \
-  --architecture resnet18 \
-  --pretrained
+  --patient-id-regex '(patient_\d+)' \
+  --epochs 15
 ```
 
-Omit `--pretrained` to train the ResNet18 architecture from random initialization. To compare
-architectures fairly, use the same manifest or seed, training budget, and evaluation set.
-
-## Evaluation
-
-Training writes these files to `models/`:
-
-- `metrics.json`: test results for all three approaches
-- `manifest.csv`: exact patient-grouped split
-- `training_history.json`: deep-model train and validation losses
-- `baseline.joblib`, `classical.joblib`, `deep_model.pt`: model artifacts
-- `metadata.json`: class order, architecture, image size, seed, and split counts
-
-Metrics include accuracy, balanced accuracy, macro precision/recall/F1, weighted F1, one-vs-rest
-macro ROC-AUC, log loss, multiclass Brier score, per-class sensitivity/specificity, and a 4x4
-confusion matrix. Each model also receives a confidence-triage table showing coverage and
-retained-case accuracy at thresholds from 0.5 to 0.9.
-
-The focused experiment writes `data/outputs/noise_robustness.json` and
-`data/outputs/noise_robustness.png`.
-
-Individual pipeline stages are also available:
+Run the augmentation experiment:
 
 ```bash
-python3 scripts/build_features.py --patient-id-regex '(patient_\d+)'
-python3 scripts/model.py train --patient-id-regex '(patient_\d+)'
-python3 main.py experiment
+python main.py experiment --epochs 10
 ```
 
-## Deployment
+If each filename is already one unique patient image, omit `--patient-id-regex`.
+
+## Run The Interactive App
+
+After training:
 
 ```bash
-python3 main.py serve --model-dir models
+python main.py serve
 ```
 
-Open `http://127.0.0.1:8000`, or call:
+Open `http://127.0.0.1:8000`. The app supports image upload, tumor-class prediction, confidence,
+class probabilities, Grad-CAM visualization, and a clinical-use disclaimer.
+
+## Public Deployment
+
+Deploy the FastAPI application to a service such as Render, Railway, or Google Cloud Run.
+The start command is:
 
 ```bash
-curl -F "file=@example.png" http://127.0.0.1:8000/predict
+uvicorn brain_tumor_ml.api:app --host 0.0.0.0 --port $PORT
 ```
 
-The response contains the predicted class, confidence, all four probabilities, a human-review
-recommendation, architecture, and a medical-use disclaimer. `POST /explain` additionally returns
-a base64-encoded Grad-CAM overlay. The browser UI uses this endpoint automatically. Grad-CAM is
-an attention visualization, not proof of clinically valid reasoning.
+Set `BRAIN_TUMOR_ARTIFACT_DIR=models` and ensure the trained files in `models/` are available to
+the deployment. Hosting and uptime must be configured on the selected platform; repository code
+cannot by itself guarantee that the public app remains live for one week.
 
-## Before Reporting Real-World Performance
+## Tests
 
-1. Document the dataset, label reference standard, exclusions, and class distribution.
-2. Audit duplicate images and patient leakage.
-3. Reserve an external institution or later time period for testing.
-4. Add bootstrap confidence intervals and subgroup analyses.
-5. Evaluate calibration and clinically relevant operating behavior.
-6. Test scanner, sequence, compression, and acquisition-quality shifts.
-7. Complete privacy, security, bias, regulatory, and prospective-validation reviews.
-
+```bash
+pytest -q
+```
 ## Attribution
 
 This project was developed with assistance from OpenAI ChatGPT for software engineering support, code generation, testing, and documentation. All generated content was reviewed, modified, and validated by the author.

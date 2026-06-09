@@ -69,12 +69,17 @@ def fit_deep(
     seed: int = 42,
     architecture: str = "small_cnn",
     pretrained: bool = False,
+    use_augmentation: bool = True,
 ) -> DeepTrainingResult:
     set_seed(seed)
     device = _device()
     model = build_model(architecture=architecture, pretrained=pretrained).to(device)
     train_loader = DataLoader(
-        BrainTumorDataset(train_records, image_size=image_size, training=True),
+        BrainTumorDataset(
+            train_records,
+            image_size=image_size,
+            training=use_augmentation,
+        ),
         batch_size=batch_size,
         shuffle=True,
     )

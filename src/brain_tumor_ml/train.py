@@ -1,11 +1,16 @@
 from __future__ import annotations
 
 import argparse
+import csv
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 from .artifacts import save_deep, save_json, save_sklearn
 from .constants import CLASS_NAMES, DEFAULT_ARTIFACT_DIR, DEFAULT_IMAGE_SIZE
 from .data import discover_images, save_manifest, split_records
+from .error_analysis import save_error_analysis
 from .features import build_feature_matrix
 from .metrics import classification_metrics
 from .training import fit_baseline, fit_classical, fit_deep, predict_deep
@@ -22,6 +27,7 @@ def run_training(
     architecture: str = "small_cnn",
     pretrained: bool = False,
     triage_confidence_threshold: float = 0.7,
+    report_dir: Path = Path("data/outputs"),
 ) -> dict:
     if not 0 < triage_confidence_threshold < 1:
         raise ValueError("triage_confidence_threshold must be between 0 and 1.")
@@ -67,6 +73,7 @@ def run_training(
         deep_result.model, test_records, image_size=image_size, batch_size=batch_size
     )
     results["deep_cnn"] = classification_metrics(y_test, deep_probabilities)
+    save_error_analysis(test_records, deep_probabilities, Path(report_dir) / "error_analysis")
     save_json(deep_result.history, output_dir / "training_history.json")
 
     metadata = {
@@ -88,7 +95,57 @@ def run_training(
     }
     save_json(metadata, output_dir / "metadata.json")
     save_json(results, output_dir / "metrics.json")
+    _save_model_comparison(results, output_dir / "model_comparison.csv")
+    _save_confusion_matrices(results, Path(report_dir) / "confusion_matrices.png")
     return results
+
+
+def _save_model_comparison(results: dict[str, dict], path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=(
+                "model",
+                "accuracy",
+                "precision",
+                "recall",
+                "f1_score",
+                "roc_auc",
+            ),
+        )
+        writer.writeheader()
+        for model_name, metrics in results.items():
+            writer.writerow(
+                {
+                    "model": model_name,
+                    "accuracy": metrics["accuracy"],
+                    "precision": metrics["macro_precision"],
+                    "recall": metrics["macro_recall"],
+                    "f1_score": metrics["macro_f1"],
+                    "roc_auc": metrics["roc_auc_ovr_macro"],
+                }
+            )
+
+
+def _save_confusion_matrices(results: dict[str, dict], path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig, axes = plt.subplots(1, len(results), figsize=(12, 3.8))
+    for axis, (model_name, metrics) in zip(axes, results.items(), strict=True):
+        matrix = np.asarray(metrics["confusion_matrix"])
+        image = axis.imshow(matrix, cmap="Blues")
+        for row in range(matrix.shape[0]):
+            for column in range(matrix.shape[1]):
+                axis.text(column, row, str(matrix[row, column]), ha="center", va="center")
+        axis.set_title(model_name.replace("_", " ").title(), fontsize=10)
+        axis.set_xticks(range(len(CLASS_NAMES)), CLASS_NAMES, rotation=45, ha="right")
+        axis.set_yticks(range(len(CLASS_NAMES)), CLASS_NAMES)
+        axis.set_xlabel("Predicted")
+        axis.set_ylabel("True")
+    fig.colorbar(image, ax=axes, shrink=0.7)
+    fig.subplots_adjust(left=0.07, right=0.94, bottom=0.25, top=0.86, wspace=0.5)
+    fig.savefig(path, dpi=160)
+    plt.close(fig)
 
 
 def main() -> None:
@@ -114,6 +171,7 @@ def main() -> None:
         default=0.7,
         help="Predictions below this confidence are flagged for human review.",
     )
+    parser.add_argument("--report-dir", type=Path, default=Path("data/outputs"))
     args = parser.parse_args()
     results = run_training(**vars(args))
     for model_name, metrics in results.items():

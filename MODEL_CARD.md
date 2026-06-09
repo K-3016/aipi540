@@ -15,8 +15,7 @@ predicts `glioma`, `meningioma`, `pituitary`, or `normal`.
 ## Models
 
 The repository trains a naive prior classifier, a classical logistic-regression pipeline using
-handcrafted image features, and either a compact CNN or ResNet18. The selected deep model is
-deployed through FastAPI.
+handcrafted image features, and a compact CNN. The CNN is deployed through FastAPI.
 
 ## Inputs and Outputs
 
@@ -27,10 +26,9 @@ size. Output: one predicted class and probabilities for all four classes.
 
 All approaches use the same patient-grouped train/validation/test manifest. Results are written
 to `metrics.json`, including macro and per-class metrics, multiclass discrimination and
-calibration metrics, and a confusion matrix. Gaussian-noise robustness results are written to
-`noise_robustness.json`. Confidence-based selective prediction reports coverage and accuracy
-among retained cases at multiple thresholds. Grad-CAM overlays expose influential image regions
-for qualitative review.
+calibration metrics, and a confusion matrix. The focused experiment compares CNN performance
+with and without training-time augmentation. Grad-CAM overlays expose influential image regions
+for qualitative review, and an error-analysis report records up to five incorrect predictions.
 
 ## Known Limitations
 

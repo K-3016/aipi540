@@ -24,8 +24,7 @@ def main() -> None:
     train.add_argument("--epochs", type=int, default=15)
     train.add_argument("--batch-size", type=int, default=16)
     train.add_argument("--seed", type=int, default=42)
-    train.add_argument("--architecture", choices=("small_cnn", "resnet18"), default="small_cnn")
-    train.add_argument("--pretrained", action="store_true")
+    train.add_argument("--report-dir", type=Path, default=Path("data/outputs"))
 
     predict = subparsers.add_parser("predict")
     predict.add_argument("image", type=Path)
@@ -41,8 +40,9 @@ def main() -> None:
             epochs=args.epochs,
             batch_size=args.batch_size,
             seed=args.seed,
-            architecture=args.architecture,
-            pretrained=args.pretrained,
+            architecture="small_cnn",
+            pretrained=False,
+            report_dir=args.report_dir,
         )
         print(json.dumps(results, indent=2))
     else:
