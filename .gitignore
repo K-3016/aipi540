@@ -5,6 +5,7 @@
 .venv/
 venv/
 env/
+0608/
 
 # Python
 __pycache__/
@@ -35,7 +36,8 @@ data/processed/*
 .vscode/
 .idea/
 
-# Existing local folders
-trashnet-clean/0608/
-.venv/
-0608/
+# Local folders
+trashnet-clean/
+
+# Package metadata
+*.egg-info/
