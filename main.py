@@ -16,6 +16,19 @@ def main() -> None:
     demo.add_argument("--samples-per-class", type=int, default=30)
     demo.add_argument("--seed", type=int, default=42)
 
+    kaggle = subparsers.add_parser(
+        "prepare-kaggle",
+        help="Download and prepare the Kaggle brain tumor MRI dataset.",
+    )
+    kaggle.add_argument("--output-dir", type=Path, default=Path("data/processed/kaggle"))
+    kaggle.add_argument("--validation-fraction", type=float, default=0.15)
+    kaggle.add_argument("--seed", type=int, default=42)
+    kaggle.add_argument(
+        "--source-dir",
+        type=Path,
+        help="Prepare an existing download instead of downloading with kagglehub.",
+    )
+
     train = subparsers.add_parser("train", help="Train and evaluate all three required models.")
     _add_training_arguments(train)
 
@@ -44,6 +57,16 @@ def main() -> None:
     if args.command == "demo-data":
         generate_demo_data(args.output_dir, args.samples_per_class, args.seed)
         print(f"Generated synthetic data in {args.output_dir}.")
+    elif args.command == "prepare-kaggle":
+        from brain_tumor_ml.kaggle_data import download_and_prepare_kaggle_dataset
+
+        counts = download_and_prepare_kaggle_dataset(
+            output_dir=args.output_dir,
+            validation_fraction=args.validation_fraction,
+            seed=args.seed,
+            source_dir=args.source_dir,
+        )
+        print(f"Prepared Kaggle dataset in {args.output_dir}: {counts}")
     elif args.command == "train":
         _train_from_args(args)
     elif args.command == "experiment":

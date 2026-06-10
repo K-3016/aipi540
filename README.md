@@ -53,32 +53,62 @@ the true label, predicted label, confidence, possible reason, suggested improvem
 annotated copy of the image. If the test set contains fewer than five errors, all available
 errors are reported rather than inventing mistakes.
 
-## Dataset Preparation
+## Kaggle Dataset Preparation
 
-Use a public, appropriately licensed brain MRI dataset, for example a Kaggle brain tumor MRI
-classification dataset. Download it yourself after accepting its license and terms.
+The project supports:
 
-Organize the images as:
+- `masoudnickparvar/brain-tumor-mri-dataset`
+- Dataset page: `https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset`
 
-```text
-data/raw/
-├── glioma/
-├── meningioma/
-├── pituitary/
-└── normal/
+Install dependencies, then download and prepare it:
+
+```bash
+pip install -r requirements.txt
+python main.py prepare-kaggle
 ```
 
-The pipeline then:
+`kagglehub` downloads the latest available version. The preparation command:
 
-- discovers images from the four folders;
-- creates patient-grouped train, validation, and test splits;
-- resizes images;
-- converts them to grayscale;
-- normalizes pixel values;
-- applies augmentation to CNN training images.
+- preserves Kaggle's original `Testing` folder as the project test set;
+- splits only Kaggle's `Training` folder into training and validation data;
+- maps Kaggle's `notumor` folder to this project's `normal` label;
+- creates the following reproducible structure:
 
-Use `--patient-id-regex` when filenames contain patient IDs. This prevents images from one
-patient appearing in multiple splits.
+```text
+data/processed/kaggle/
+├── train/
+│   ├── glioma/
+│   ├── meningioma/
+│   ├── pituitary/
+│   └── normal/
+├── val/
+│   └── ...
+└── test/
+    └── ...
+```
+
+Train all three required models and run the augmentation experiment:
+
+```bash
+python main.py pipeline \
+  --data-dir data/processed/kaggle \
+  --image-size 128 \
+  --epochs 15
+```
+
+Do not pass the synthetic-data patient regex for this dataset. Its distributed filenames do not
+provide reliable patient identifiers. Therefore, the code preserves the publisher's test split,
+but it cannot independently verify patient-level separation. This limitation must be disclosed in
+the report.
+
+If you already downloaded the dataset manually:
+
+```bash
+python main.py prepare-kaggle --source-dir /path/to/downloaded/dataset
+```
+
+The pipeline then resizes images, converts them to grayscale, normalizes pixels, and applies
+augmentation only to CNN training images.
 
 ## Setup In VS Code
 
@@ -120,8 +150,7 @@ Synthetic data only verifies that the software works. Do not use its scores as m
 Very short CNN runs can collapse to one class. Check `models/model_comparison.csv` before opening
 the app; the CNN should clearly outperform the 25% balanced-accuracy naive baseline.
 
-
-## Run With Real MRI Data
+## Run With Other MRI Data
 
 Train and evaluate all three models:
 
@@ -169,6 +198,7 @@ cannot by itself guarantee that the public app remains live for one week.
 ```bash
 pytest -q
 ```
+
 ## Attribution
 
 This project was developed with assistance from OpenAI ChatGPT for software engineering support, code generation, testing, and documentation. All generated content was reviewed, modified, and validated by the author.

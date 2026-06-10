@@ -1,4 +1,4 @@
-.PHONY: install setup demo features train pipeline experiment test serve
+.PHONY: install setup demo kaggle features train pipeline experiment test serve
 
 install:
 	python3 -m pip install -e ".[dev]"
@@ -8,6 +8,9 @@ setup: install
 
 demo:
 	python3 main.py demo-data
+
+kaggle:
+	python3 main.py prepare-kaggle
 
 train:
 	python3 main.py train

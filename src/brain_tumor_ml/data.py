@@ -30,29 +30,37 @@ def discover_images(data_dir: Path, patient_id_regex: str | None = None) -> list
     pattern = re.compile(patient_id_regex) if patient_id_regex else None
     records: list[ImageRecord] = []
 
-    for class_name in CLASS_NAMES:
-        class_dir = data_dir / class_name
-        if not class_dir.is_dir():
-            raise FileNotFoundError(
-                f"Expected class directory '{class_dir}'. "
-                f"Required folders are: {', '.join(CLASS_NAMES)}."
-            )
-        for path in sorted(class_dir.rglob("*")):
-            if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS:
-                patient_id = path.stem
-                if pattern:
-                    match = pattern.search(path.name)
-                    if not match:
-                        raise ValueError(f"Patient ID regex did not match '{path.name}'.")
-                    patient_id = match.group(1) if match.groups() else match.group(0)
-                records.append(
-                    ImageRecord(
-                        path=str(path.resolve()),
-                        label=CLASS_TO_INDEX[class_name],
-                        class_name=class_name,
-                        patient_id=patient_id,
-                    )
+    split_directories = [
+        (split, data_dir / split)
+        for split in ("train", "val", "test")
+        if (data_dir / split).is_dir()
+    ]
+    roots = split_directories or [("", data_dir)]
+    for split, root in roots:
+        for class_name in CLASS_NAMES:
+            class_dir = root / class_name
+            if not class_dir.is_dir():
+                raise FileNotFoundError(
+                    f"Expected class directory '{class_dir}'. "
+                    f"Required folders are: {', '.join(CLASS_NAMES)}."
                 )
+            for path in sorted(class_dir.rglob("*")):
+                if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS:
+                    patient_id = path.stem
+                    if pattern:
+                        match = pattern.search(path.name)
+                        if not match:
+                            raise ValueError(f"Patient ID regex did not match '{path.name}'.")
+                        patient_id = match.group(1) if match.groups() else match.group(0)
+                    records.append(
+                        ImageRecord(
+                            path=str(path.resolve()),
+                            label=CLASS_TO_INDEX[class_name],
+                            class_name=class_name,
+                            patient_id=patient_id,
+                            split=split,
+                        )
+                    )
 
     if not records:
         raise ValueError(f"No supported images found under '{data_dir}'.")
@@ -69,6 +77,12 @@ def split_records(
     test_fraction: float = 0.15,
 ) -> list[ImageRecord]:
     """Create deterministic, class-stratified splits while keeping patient IDs together."""
+    records = list(records)
+    assigned = {record.split for record in records}
+    if assigned == {"train", "val", "test"}:
+        return sorted(records, key=lambda record: (record.split, record.path))
+    if assigned != {""}:
+        raise ValueError("Records must either all have explicit splits or all be unsplit.")
     if val_fraction <= 0 or test_fraction <= 0 or val_fraction + test_fraction >= 1:
         raise ValueError("val_fraction and test_fraction must be positive and sum to less than 1.")
 

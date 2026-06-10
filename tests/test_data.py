@@ -37,3 +37,17 @@ def test_discovery_requires_expected_folders(tmp_path):
         assert "meningioma" in str(error)
     else:
         raise AssertionError("Expected missing class folder to fail.")
+
+
+def test_explicit_split_directories_are_preserved(tmp_path):
+    for split in ("train", "val", "test"):
+        for class_name in ("glioma", "meningioma", "pituitary", "normal"):
+            directory = tmp_path / split / class_name
+            directory.mkdir(parents=True)
+            Image.new("L", (16, 16), color=100).save(directory / f"{split}_{class_name}.png")
+
+    records = discover_images(tmp_path)
+    split = split_records(records)
+
+    assert len(split) == 12
+    assert {record.split for record in split} == {"train", "val", "test"}
