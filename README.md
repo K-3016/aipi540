@@ -27,7 +27,7 @@ The experiment compares the same CNN:
 
 The split, architecture, seed, image size, epochs, and batch size remain fixed. Results include
 accuracy, macro precision, macro recall, and macro F1.
-CNN achieved balanced accuracy = 0.836 and macro F1 = 0.829 on the Kaggle test set.
+
 Files:
 
 - Code: `src/brain_tumor_ml/experiment.py`
@@ -93,7 +93,7 @@ Train all three required models and run the augmentation experiment:
 python main.py pipeline \
   --data-dir data/processed/kaggle \
   --image-size 128 \
- --epochs 15 \
+  --epochs 15 \
   --experiment-epochs 5
 ```
 
@@ -203,16 +203,46 @@ class probabilities, Grad-CAM visualization, and a clinical-use disclaimer.
 
 ## Public Deployment
 
-Deploy the FastAPI application to a service such as Render, Railway, or Google Cloud Run.
-The start command is:
+FastAPI meets the interactive-application requirement: the `/` route is a browser UI that uploads
+an image and runs model inference through `/explain`. The deployed app does not train or modify the
+model.
+
+This repository includes `render.yaml` for a public Render deployment. Before deploying, copy the
+final trained inference artifacts into the versioned `models/` directory:
+
+```bash
+cp /path/to/final/model/deep_model.pt models/deep_model.pt
+cp /path/to/final/model/metadata.json models/metadata.json
+git add models/deep_model.pt models/metadata.json render.yaml Dockerfile .gitignore README.md
+git commit -m "Prepare inference app for public deployment"
+git push
+```
+
+Do not substitute synthetic demo artifacts for the final model. The Docker build intentionally
+fails if either required inference file is absent.
+
+To deploy:
+
+1. Sign in to Render and choose **New > Blueprint**.
+2. Connect this Git repository and apply the detected `render.yaml`.
+3. Wait for the deploy to complete, then open the generated `onrender.com` URL.
+4. Verify both `/` and `/health`; `/health` must return a JSON response with `"status": "ok"`.
+5. Submit the public root URL and leave the Render service in place for at least one week after
+   submission.
+
+The Blueprint uses Render's free service plan. Free services remain publicly reachable but can
+sleep after a period without traffic, so the first request after inactivity can be slow. Use a
+paid always-on instance if the evaluator requires immediate responses with no cold start.
+
+For another host, the equivalent start command is:
 
 ```bash
 uvicorn brain_tumor_ml.api:app --host 0.0.0.0 --port $PORT
 ```
 
-Set `BRAIN_TUMOR_ARTIFACT_DIR=models` and ensure the trained files in `models/` are available to
-the deployment. Hosting and uptime must be configured on the selected platform; repository code
-cannot by itself guarantee that the public app remains live for one week.
+Set `BRAIN_TUMOR_ARTIFACT_DIR=models`. Hosting and uptime must be configured on the selected
+platform; repository code cannot by itself guarantee that the public app remains live for one
+week.
 
 ## Tests
 

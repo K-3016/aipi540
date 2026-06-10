@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: neurovision-mri-classifier
+    runtime: docker
+    plan: free
+    region: singapore
+    healthCheckPath: /health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: BRAIN_TUMOR_ARTIFACT_DIR
+        value: /app/models

@@ -20,6 +20,10 @@ __pycache__/
 *.ckpt
 *.joblib
 
+# Deployment inference artifacts
+!models/deep_model.pt
+!models/metadata.json
+
 # Outputs
 outputs/
 artifacts/
