@@ -27,7 +27,7 @@ The experiment compares the same CNN:
 
 The split, architecture, seed, image size, epochs, and batch size remain fixed. Results include
 accuracy, macro precision, macro recall, and macro F1.
-
+CNN achieved balanced accuracy = 0.836 and macro F1 = 0.829 on the Kaggle test set.
 Files:
 
 - Code: `src/brain_tumor_ml/experiment.py`
