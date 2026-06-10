@@ -10,14 +10,14 @@
   "deep_architecture": "small_cnn",
   "pretrained": false,
   "triage_confidence_threshold": 0.7,
-  "image_size": 64,
+  "image_size": 128,
   "seed": 42,
   "split_counts": {
-    "train": 88,
-    "val": 16,
-    "test": 16
+    "train": 4760,
+    "val": 840,
+    "test": 1600
   },
-  "patient_grouping": true,
-  "patient_id_regex": "(patient_\\d+)",
+  "patient_grouping": false,
+  "patient_id_regex": null,
   "medical_use": "research_and_education_only"
 }
