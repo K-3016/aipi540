@@ -46,6 +46,17 @@ def main() -> None:
     )
     _add_training_arguments(pipeline)
     pipeline.add_argument("--report-dir", type=Path, default=Path("data/outputs"))
+    pipeline.add_argument(
+        "--experiment-epochs",
+        type=int,
+        default=5,
+        help="Epochs for each augmentation experiment CNN (default: 5).",
+    )
+    pipeline.add_argument(
+        "--skip-experiment",
+        action="store_true",
+        help="Train the three required models now and run the experiment later.",
+    )
 
     serve = subparsers.add_parser("serve", help="Launch the prediction and Grad-CAM web UI.")
     serve.add_argument("--model-dir", type=Path, default=Path("models"))
@@ -81,17 +92,24 @@ def main() -> None:
         )
         print(f"Wrote augmentation experiment results to {args.output_dir}.")
     elif args.command == "pipeline":
-        from brain_tumor_ml.experiment import run_experiment
-
         _train_from_args(args)
-        run_experiment(
-            args.model_dir,
-            args.report_dir,
-            epochs=args.epochs,
-            batch_size=args.batch_size,
-            seed=args.seed,
-        )
-        print(f"Wrote augmentation experiment results to {args.report_dir}.")
+        if args.skip_experiment:
+            print(
+                "Skipped augmentation experiment. Run "
+                "'python main.py experiment --epochs 5' later.",
+                flush=True,
+            )
+        else:
+            from brain_tumor_ml.experiment import run_experiment
+
+            run_experiment(
+                args.model_dir,
+                args.report_dir,
+                epochs=args.experiment_epochs,
+                batch_size=args.batch_size,
+                seed=args.seed,
+            )
+            print(f"Wrote augmentation experiment results to {args.report_dir}.", flush=True)
     elif args.command == "serve":
         import uvicorn
 

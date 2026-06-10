@@ -93,7 +93,28 @@ Train all three required models and run the augmentation experiment:
 python main.py pipeline \
   --data-dir data/processed/kaggle \
   --image-size 128 \
-  --epochs 15
+ --epochs 15 \
+  --experiment-epochs 5
+```
+
+The command above trains one deployment CNN for up to 15 epochs, then trains two additional CNNs
+for up to 5 epochs each for the augmentation experiment. Epoch progress and elapsed time are
+printed in the terminal.
+
+To train the required three models first and launch the app sooner:
+
+```bash
+python main.py pipeline \
+  --data-dir data/processed/kaggle \
+  --image-size 128 \
+  --epochs 15 \
+  --skip-experiment
+```
+
+Run the focused experiment separately afterward:
+
+```bash
+python main.py experiment --epochs 5
 ```
 
 Do not pass the synthetic-data patient regex for this dataset. Its distributed filenames do not

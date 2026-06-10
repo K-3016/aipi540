@@ -33,6 +33,11 @@ def run_experiment(
     rows = []
 
     for use_augmentation in (False, True):
+        condition = "with augmentation" if use_augmentation else "without augmentation"
+        print(
+            f"Experiment: training CNN {condition} for up to {epochs} epochs...",
+            flush=True,
+        )
         result = fit_deep(
             train_records,
             val_records,
@@ -59,6 +64,11 @@ def run_experiment(
                 "recall": metrics["macro_recall"],
                 "f1_score": metrics["macro_f1"],
             }
+        )
+        print(
+            f"Experiment result ({condition}): accuracy={metrics['accuracy']:.3f}, "
+            f"macro_f1={metrics['macro_f1']:.3f}",
+            flush=True,
         )
 
     save_json(

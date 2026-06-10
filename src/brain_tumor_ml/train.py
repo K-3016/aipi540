@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import time
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -13,7 +14,12 @@ from .data import discover_images, save_manifest, split_records
 from .error_analysis import save_error_analysis
 from .features import build_feature_matrix
 from .metrics import classification_metrics
-from .training import fit_baseline, fit_classical, fit_deep, predict_deep
+from .training import (
+    fit_baseline_features,
+    fit_classical_features,
+    fit_deep,
+    predict_deep,
+)
 
 
 def run_training(
@@ -32,6 +38,8 @@ def run_training(
     if not 0 < triage_confidence_threshold < 1:
         raise ValueError("triage_confidence_threshold must be between 0 and 1.")
     output_dir = Path(output_dir)
+    overall_started = time.perf_counter()
+    print(f"Loading dataset from {data_dir}...", flush=True)
     records = split_records(
         discover_images(Path(data_dir), patient_id_regex=patient_id_regex),
         seed=seed,
@@ -40,19 +48,34 @@ def run_training(
     train_records = [record for record in records if record.split == "train"]
     val_records = [record for record in records if record.split == "val"]
     test_records = [record for record in records if record.split == "test"]
+    print(
+        f"Dataset ready: {len(train_records)} train, {len(val_records)} validation, "
+        f"{len(test_records)} test images.",
+        flush=True,
+    )
+    print("Extracting handcrafted train and test features (one-time pass)...", flush=True)
+    x_train, y_train = build_feature_matrix(train_records)
     x_test, y_test = build_feature_matrix(test_records)
 
     results: dict[str, dict] = {}
-    baseline = fit_baseline(train_records)
+    started = time.perf_counter()
+    print("Training model 1/3: naive baseline...", flush=True)
+    baseline = fit_baseline_features(x_train, y_train)
     save_sklearn(baseline, output_dir / "baseline.joblib")
     results["naive_baseline"] = classification_metrics(y_test, baseline.predict_proba(x_test))
+    print(f"Naive baseline complete in {time.perf_counter() - started:.1f}s.", flush=True)
 
-    classical = fit_classical(train_records, seed=seed)
+    started = time.perf_counter()
+    print("Training model 2/3: logistic regression...", flush=True)
+    classical = fit_classical_features(x_train, y_train, seed=seed)
     save_sklearn(classical, output_dir / "classical.joblib")
     results["classical_logistic_regression"] = classification_metrics(
         y_test, classical.predict_proba(x_test)
     )
+    print(f"Logistic regression complete in {time.perf_counter() - started:.1f}s.", flush=True)
 
+    started = time.perf_counter()
+    print("Training model 3/3: CNN...", flush=True)
     deep_result = fit_deep(
         train_records,
         val_records,
@@ -73,6 +96,7 @@ def run_training(
         deep_result.model, test_records, image_size=image_size, batch_size=batch_size
     )
     results["deep_cnn"] = classification_metrics(y_test, deep_probabilities)
+    print(f"CNN training and evaluation complete in {time.perf_counter() - started:.1f}s.", flush=True)
     save_error_analysis(test_records, deep_probabilities, Path(report_dir) / "error_analysis")
     save_json(deep_result.history, output_dir / "training_history.json")
 
@@ -97,6 +121,7 @@ def run_training(
     save_json(results, output_dir / "metrics.json")
     _save_model_comparison(results, output_dir / "model_comparison.csv")
     _save_confusion_matrices(results, Path(report_dir) / "confusion_matrices.png")
+    print(f"Training workflow complete in {time.perf_counter() - overall_started:.1f}s.", flush=True)
     return results
 
 

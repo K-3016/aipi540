@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import random
+import time
 from dataclasses import dataclass
 
 import numpy as np
@@ -33,6 +34,10 @@ def set_seed(seed: int) -> None:
 
 def fit_baseline(records: list[ImageRecord]) -> DummyClassifier:
     features, labels = build_feature_matrix(records)
+    return fit_baseline_features(features, labels)
+
+
+def fit_baseline_features(features: np.ndarray, labels: np.ndarray) -> DummyClassifier:
     model = DummyClassifier(strategy="prior")
     model.fit(features, labels)
     return model
@@ -40,6 +45,14 @@ def fit_baseline(records: list[ImageRecord]) -> DummyClassifier:
 
 def fit_classical(records: list[ImageRecord], seed: int = 42) -> Pipeline:
     features, labels = build_feature_matrix(records)
+    return fit_classical_features(features, labels, seed=seed)
+
+
+def fit_classical_features(
+    features: np.ndarray,
+    labels: np.ndarray,
+    seed: int = 42,
+) -> Pipeline:
     model = Pipeline(
         [
             ("scale", StandardScaler()),
@@ -74,6 +87,11 @@ def fit_deep(
     set_seed(seed)
     device = _device()
     model = build_model(architecture=architecture, pretrained=pretrained).to(device)
+    print(
+        f"CNN training on {device}: {len(train_records)} train, "
+        f"{len(val_records)} validation images, up to {epochs} epochs.",
+        flush=True,
+    )
     train_loader = DataLoader(
         BrainTumorDataset(
             train_records,
@@ -101,9 +119,15 @@ def fit_deep(
     stale_epochs = 0
     history: list[dict[str, float]] = []
     for epoch in range(1, epochs + 1):
+        started = time.perf_counter()
         train_loss = _run_epoch(model, train_loader, criterion, device, optimizer)
         val_loss = _run_epoch(model, val_loader, criterion, device)
         history.append({"epoch": epoch, "train_loss": train_loss, "val_loss": val_loss})
+        print(
+            f"  epoch {epoch:02d}/{epochs}: train_loss={train_loss:.4f}, "
+            f"val_loss={val_loss:.4f}, elapsed={time.perf_counter() - started:.1f}s",
+            flush=True,
+        )
         if val_loss < best_loss - 1e-5:
             best_loss = val_loss
             best_state = copy.deepcopy(model.state_dict())
@@ -111,6 +135,7 @@ def fit_deep(
         else:
             stale_epochs += 1
             if stale_epochs >= patience:
+                print(f"  early stopping after epoch {epoch}.", flush=True)
                 break
 
     model.load_state_dict(best_state)
