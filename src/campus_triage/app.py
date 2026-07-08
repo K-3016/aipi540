@@ -196,6 +196,18 @@ CUSTOM_CSS = """
         color: #ffffff !important;
         -webkit-text-fill-color: #ffffff !important;
     }
+    div[data-testid="stElementContainer"][class*="st-key-example_"] button[data-testid="stBaseButton-secondary"] {
+        background: #111827 !important;
+        border: 1px solid #0f766e !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+    div[data-testid="stElementContainer"][class*="st-key-example_"] button[data-testid="stBaseButton-secondary"]:hover {
+        background: #115e59 !important;
+        border-color: #0f766e !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
     @media (max-width: 800px) {
         .status-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .hero { padding: 1.25rem; }
