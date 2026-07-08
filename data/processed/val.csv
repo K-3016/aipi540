@@ -1,0 +1,271 @@
+message_id,message_text,category,urgency,channel,student_type,created_hour
+MSG-00800,"Can an advisor check whether I am on track to graduate? Also, the credits page is confusing.",academic_advising,low,chat,international,3
+MSG-00246,"Hi team, I need to drop a course before the deadline but the button is missing. I already checked the student portal and could not find a clear answer.",registration,medium,chat,graduate,0
+MSG-00232,The learning platform will not load my quiz and it is due tomorrow. next week is fine.,technical_support,low,web_form,international,11
+MSG-01090,"Hi team,Can someone explain why my scholarship disappeared from the bill? I already checked the student portal and could not find a clear answer.",financial_aid,high,email,graduate,3
+MSG-00457,can an advisr check whether i am on track to graduate?,academic_advising,medium,web_form,graduate,0
+MSG-01064,confused about this,academic_advising,low,email,graduate,17
+MSG-00479,I uploaded FAFSA documents but the portal still says incomplete. today if possible.,financial_aid,medium,email,international,1
+MSG-01032,The waitlist says open but the system will not let me add the class.,registration,low,chat,graduate,6
+MSG-01478,I need to drop a course before the deadline but the button is missing.,registration,high,email,graduate,9
+MSG-00191,confused about this,academic_advising,medium,web_form,international,16
+MSG-01584,I need help setting up a payment plan before classes start.,financial_aid,low,chat,online,0
+MSG-01288,I tested positive and need to know what to do about attendance.,health_wellness,medium,email,undergraduate,13
+MSG-00313,"The learning platform will not load my quiz and it is due tomorrow. Also, the Canvas page is confusing.",technical_support,high,chat,graduate,3
+MSG-01705,Can an advisor check whether I am on track to graduate?,academic_advising,low,web_form,graduate,15
+MSG-00208,"Hi team, My campus login keeps failing even after I reset my password. Also, the Canvas page is confusing. I already checked the student portal and could not find a clear answer.",technical_support,low,web_form,graduate,4
+MSG-00645,Can someone explain why my scholarship disappeared from the bill?,financial_aid,low,chat,online,4
+MSG-01466,Please let me know where this request should go.???,general,low,email,international,23
+MSG-00051,"Hi team, The learning platform will not load my quiz and it is due tomorrow. soon. I already checked the student portal and could not find a clear answer.",technical_support,medium,chat,international,5
+MSG-00738,Can I move rooms because the noise is affecting my sleep?,housing,low,email,undergraduate,6
+MSG-01188,"i tested positive and need to know what to do about attendance. also, the wellness page is confusing. when you have time.",health_wellness,low,email,graduate,6
+MSG-00915,"Hi team, Can you point me to the right office for a campus policy issue? I already checked the student portal and could not find a clear answer",general,low,chat,international,5
+MSG-01217,"Hi team, I need an appointment because I have been feeling overwhelmed all week. I already checked the student portal and could not find a clear answer.",health_wellness,high,email,online,18
+MSG-01380,i need to drop a course before the deadline but the button is missing.!!,registration,low,web_form,graduate,17
+MSG-00028,"Hi, I am not sure who to contact about this question.",general,high,chat,international,2
+MSG-01441,I need approval for an overload because this is my final semester. :/,academic_advising,medium,chat,online,20
+MSG-00865,I need to request housing accommodation documentation review.,housing,medium,web_form,online,12
+MSG-01129,help,health_wellness,low,chat,undergraduate,8
+MSG-01716,I need to drop a course before the deadline but the button is missing. I am stuck.,registration,medium,web_form,online,14
+MSG-01721,Can I move rooms because the noise is affecting my sleep?,housing,low,email,online,1
+MSG-00029,"Hi team, need help asap I already checked the student portal and could not find a clear answer.???",academic_advising,medium,chat,international,5
+MSG-01742,"My aid package still has not posted and tuition is due this week. Also, the payment page is confusing. soon.",financial_aid,medium,email,international,15
+MSG-00769,I need approval for an overload because this is my final semester. thx,academic_advising,medium,web_form,international,15
+MSG-00226,"hi team, i uploaded fafsa documents but the prtal still says incomplete. please call me asap. i already checked the student portal and could not find a clear answer.",financial_aid,high,web_form,online,12
+MSG-00705,"Hi team, Hi, I am not sure who to contact about this question Also, the services page is confusing I already checed the student portal and could not find a clear answer",general,medium,email,online,10
+MSG-00484,"Hi team, My schedule has the wrong lab section and I need it fixed. I already checked the student portal and could not find a clear answer.",registration,low,web_form,graduate,20
+MSG-00413,My aid package still has not posted and tuition is due this week.,financial_aid,medium,web_form,graduate,5
+MSG-01191,"Hi team, I cannot access email from my phone after the security update. not urgent. I already checked the student portal and could not find a clear answer.",technical_support,low,chat,international,22
+MSG-00986,"The portal shows an error code when I try to submit the form Also, the portal page is confusing",technical_support,low,email,online,11
+MSG-00071,Please let me know where this request should go.,general,medium,chat,international,0
+MSG-00305,"Hi team, My campus login keeps failing even after I reset my password. I already checked the student portal and could not find a clear answer.",technical_support,medium,web_form,international,15
+MSG-00300,"Hi team, I cannot access email from my phone after the security update Also, the Canvas page is confusing today if possible I already checked the student portal and could not find a clear answer",technical_support,medium,web_form,undergraduate,1
+MSG-00916,I need to drop a course before the deadline but the button is missing. just checking.,registration,low,web_form,international,7
+MSG-01256,I am not sure which requirement MATH 220 satisfies for my major.,academic_advising,medium,email,undergraduate,10
+MSG-01336,"Hi team, There is no hot water in my dorm and the work order is still pending. when you have time. I already checked the student portal and could not find a clear answer. :/",housing,low,chat,graduate,2
+MSG-00431,"My roommate assignment changed and I never received an explanation. Also, the dorm page is confusing. when you have time.",housing,low,chat,undergraduate,10
+MSG-00451,I cannot register for BIO 101 bc there is a hold on my account. next week is fine.!!,registration,low,email,online,13
+MSG-01234,"My schedule has the wrong lab section and I need it fixed Also, the add page is confusing",registration,medium,web_form,online,9
+MSG-00100,"Hi team, I cannot register for HIST 305 because there is a hold on my account. I already checked the student portal and could not find a clear answer.",registration,medium,chat,undergraduate,0
+MSG-01445,"Hi team, Please let me know where this request should go. Also, the campus page is confusing. I already checked the student portal and could not find a clear answer.",general,low,email,online,0
+MSG-00994,"hi, i am not sure who to contact about this question.",general,high,email,graduate,9
+MSG-01703,Can I talk to someone today about anxiety and missing classes?,health_wellness,medium,chat,online,0
+MSG-00324,I cannot access email from my phone after the security update.???,technical_support,low,chat,graduate,14
+MSG-00867,The waitlist says open but the system will not let me add the class.,registration,low,web_form,international,22
+MSG-01655,"I need approval for an overload because this is my final semester. Also, the requirement page is confusing.",academic_advising,low,web_form,undergraduate,19
+MSG-00447,Can someone explain why my scholarship disappeared rom the bill? I am stuck.,financial_aid,medium,web_form,online,7
+MSG-01757,I need help setting up a payment plan before classes start. just checking.,financial_aid,low,email,international,10
+MSG-00022,There is no hot water in my dorm and the work order is still pending.,housing,high,web_form,graduate,21
+MSG-00161,Can someone explain why my scholarship disappeared from the bill?,financial_aid,medium,chat,international,5
+MSG-00936,"The waitlist says open but the system will not let me add the class. Also, the add page is confusing.",registration,medium,chat,international,17
+MSG-01627,help,registration,medium,web_form,online,22
+MSG-00078,"Hi team, My roommate assignment changed and I never received an explanation I already checked the studet portal and could not find a clear answer",housing,medium,email,international,7
+MSG-00649,"Hi team, I cannot access email from my phone after the security update. I already checked the student portal andcould not find a clear answer.",technical_support,medium,chat,undergraduate,13
+MSG-01596,The waitlist says open but the system will not let me add the class,registration,medium,web_form,graduate,18
+MSG-01054,"The portal shows an error code when I try to submit the form. Also, the error page is confusing. today if possible.",technical_support,medium,web_form,undergraduate,18
+MSG-00168,"hi team, there is no hot water in my dorm and the work order is still pending. next week is fine. i already checked the student portal and could not find a clear answer.",housing,low,web_form,graduate,17
+MSG-01706,I cannot register for MATH 220 because there is a hold on my account. thx,registration,low,chat,international,8
+MSG-00282,I need to request housing accommodation documentation review.!!,housing,low,web_form,undergraduate,10
+MSG-01767,confused about this,housing,high,web_form,graduate,5
+MSG-01604,"hi team, can i move rooms because the noise is affecting my sleep? i already checked the student portal and could not find a clear answer.???",housing,medium,web_form,undergraduate,2
+MSG-01589,I uploaded FAFSA documents but the portal still says incomplete. I might lose access.,financial_aid,high,web_form,online,0
+MSG-00291,"I want to change majors and need to know the next step. Also, the credits page is confusing. I am stuck.",academic_advising,medium,email,graduate,0
+MSG-00811,"My campus login keeps failing even after I reset my password. Also, the error page is confusing.",technical_support,high,chat,online,21
+MSG-00267,I uploaded FAFSA documents but the portal still says incomplete.,financial_aid,low,chat,online,4
+MSG-00750,"Hi team, Can you point me to the right office for a campus policy issue? just checking. I already checked the student portal and could not find a clear answer. thx",general,low,email,graduate,5
+MSG-00623,"Please let me know where this request should go. Also, the services page is confusing. not urgent.",general,low,web_form,online,21
+MSG-00639,I tested positive and need to know what to do about attendance.,health_wellness,high,web_form,online,8
+MSG-01076,I cannot register for BIO 101 because there is a hold on my account. not urgent.,registration,low,chat,online,13
+MSG-01260,"Hi, I am not sure who to contact about this question. Also, the help page is confusing.",general,low,email,graduate,20
+MSG-01162,"I need help setting up a payment plan before classes start. Also, the refund page is confusing. :/",financial_aid,medium,web_form,graduate,1
+MSG-01681,Can I talk to someone today about anxiety and missing classes?,health_wellness,medium,email,online,8
+MSG-01364,The waitlist says open but the system will not let me add the class.,registration,low,chat,online,4
+MSG-00619,"can i move rooms because the noise is affecting my sleep? also, the meal plan page is confusing.",housing,medium,web_form,undergraduate,20
+MSG-01041,"Can I move rooms because the noise is affecting my sleep? Also, the roommate page is confusing.",housing,low,web_form,undergraduate,22
+MSG-00977,I cannot access email from my phone after the security update. before Friday.???,technical_support,medium,web_form,undergraduate,20
+MSG-00471,"Hi team, Can someone explain why my scholarship disappeared from the bill? I already checked the student portal and culd not find a clear answer.",financial_aid,medium,web_form,online,0
+MSG-01147,i cannot access email from my phone after the security update.,technical_support,low,email,undergraduate,11
+MSG-00224,My aid package still has not posted and tuition is due tonight. I might lose access.,financial_aid,high,web_form,undergraduate,2
+MSG-00342,I cannot access emailfrom my phone after the security update.,technical_support,low,email,undergraduate,23
+MSG-00563,The learning platform will not load my quiz and it is due this week.,technical_support,high,web_form,undergraduate,3
+MSG-01075,help,registration,medium,chat,graduate,0
+MSG-00944,I cannot register for MATH 220 because there is a hold on my account.!!,registration,medium,chat,undergraduate,20
+MSG-00386,"I have a question about student services and could use guidance. Also, teh office page is confusing.",general,low,chat,online,16
+MSG-00385,I cannot access email from my phone after the security update. deadline is tonight.,technical_support,high,web_form,online,6
+MSG-00315,My roommate assignment changed and I never received an explanation.,housing,low,web_form,graduate,2
+MSG-00489,"I need to request housing accommodation documentation review. Also, the dorm page is confusing.",housing,medium,web_form,graduate,10
+MSG-00591,The learning platform will not load my quiz and it is due this week,technical_support,low,chat,graduate,4
+MSG-00667,"I need approval for an overload because this is my final semester. Also, the overload page is confusing.",academic_advising,low,chat,online,22
+MSG-01518,I cannot access email from my phone after the security update,technical_support,medium,chat,international,16
+MSG-01675,I am worried about a student who said they might hurt themselves thx,health_wellness,high,chat,international,4
+MSG-01741,"I cannot register for HIST 305 because there is a hold on my account. Also, the waitlist page is confusing.",registration,low,email,undergraduate,9
+MSG-00290,"Hi, I am not sure who to contact about this question. Also, the information page is confusing.",general,low,email,online,22
+MSG-00943,"Hi team, Can you point me to the right office for a campus policy issue? not urgent. I already checked the student portal and could not find a clear answer.",general,low,email,undergraduate,17
+MSG-00284,"there is no hot water in my dorm and the work order is still pending also, the roommate page is confusing",housing,low,chat,graduate,22
+MSG-00170,Can you point me to the right office for a campus policy issue? thx,general,medium,web_form,international,8
+MSG-00466,"Can an advisor check whether I am on track to graduate? Also, the credits page is confusing. pls",academic_advising,medium,chat,undergraduate,20
+MSG-00775,I need approval for an overload because this is my final semester.!!,academic_advising,low,email,graduate,3
+MSG-00823,I am not sure which requirement MATH 220 satisfies for my major.,academic_advising,medium,web_form,graduate,12
+MSG-00725,"The waitlist says open but the system will not let me add the class. Also, the add page is confusing.",registration,high,chat,undergraduate,9
+MSG-00781,"I cannot reister for MATH 220 because there is a hold on my account. Also, the hold page is confusing. I might lose access.",registration,high,web_form,online,0
+MSG-01746,"Hi team, I want to change majors and need to know the next step. I already checked the student portal and could not find a clear answer.",academic_advising,high,email,international,18
+MSG-00793,"Can an advisor check whether I am on track to graduate? Also, the graduation page is confusing.",academic_advising,low,email,undergraduate,22
+MSG-01276,"i need help setting up a payment plan before classes start. also, the scholarship page is confusing. please call me asap. thx",financial_aid,high,email,undergraduate,11
+MSG-01283,"Can I move rooms because the noise is affecting my sleep? Also, the roommate page is confusing.",housing,medium,chat,online,7
+MSG-01002,can i talk to someone today about anxiety and missing classes? i am stuck.,health_wellness,medium,email,graduate,10
+MSG-00211,i am not sure which requirement eng 201 satisfies for my major.,academic_advising,low,chat,international,22
+MSG-01061,confused about this,registration,high,chat,online,22
+MSG-00487,"Hi team, I need approval for an overload because this is my final semester. Also, the overload page is confusing.  already checked the student portal and could not find a clear answer.",academic_advising,low,web_form,online,21
+MSG-01647,"Hi team, Can you point me to the right office for a campus policy issue? I already checke the student portal and could not find a clear answer.",general,medium,web_form,graduate,14
+MSG-00562,Can I move rooms because the noise is affecting my sleep?,housing,medium,email,online,14
+MSG-01404,"I uploaded FAFSA documents but the portal still says incomplete. Also, the FAFSA page is confusing. when you have time.???",financial_aid,low,chat,undergraduate,22
+MSG-01737,"Hi team, Can you point me to the right office for a campus policy issue? I already checked the student portal and could not find a clear answer.???",general,low,email,online,11
+MSG-01398,I am not sure which requirement CHEM 110 satisfies for my major. right now.,academic_advising,high,email,international,18
+MSG-00655,The portal shows an error code when I try to submit the form,technical_support,low,web_form,undergraduate,7
+MSG-00017,need help asap pls,health_wellness,high,email,international,6
+MSG-01029,"I need help setting up a payment plan before classes start. Also, the FAFSA page is confusing.",financial_aid,high,email,international,12
+MSG-00186,"Hi team, Hi, I am not sure who to contact about this question. I already checked the student portal and could not find a clear answer.",general,medium,chat,graduate,13
+MSG-00436,the portal shows an error code when i try to submit the form. not urgent.,technical_support,low,email,graduate,16
+MSG-01785,Please let me know where this request should go. nxt week is fine.,general,low,email,undergraduate,1
+MSG-00504,"the portal shows an error code when i try to submit the form. aso, the portal page is confusing. thx",technical_support,high,email,international,18
+MSG-00579,confused about this,health_wellness,high,chat,graduate,9
+MSG-00931,"Hi team, I need approval for an overload because this is my final semester I already checked the student portal and could not find a clear answer thx",academic_advising,medium,web_form,international,0
+MSG-00498,i have a question about student services and could use guidance.,general,low,email,international,5
+MSG-00095,Can you point me to the right office for a campus policy issue?,general,medium,chat,international,13
+MSG-00919,I am not sure which requirement HIST 305 satisfies for my major. when you have time.,academic_advising,low,email,undergraduate,1
+MSG-01356,I want to change majors and need to know the next step.,academic_advising,high,chat,undergraduate,10
+MSG-00808,Can you point me to the right office for a campus policy issue?,general,low,email,undergraduate,7
+MSG-01031,"My campus login keeps failing even after I reset my password. Also, the portal page is confusing.",technical_support,medium,chat,international,5
+MSG-00727,"My aid package still has not posted and tuition is due tonight. Also, the FAFSA page is confusing. soon.",financial_aid,medium,email,graduate,2
+MSG-00221,I am not sure which requirement HIST 305 satisfies for my major.,academic_advising,low,web_form,undergraduate,13
+MSG-00989,I tested positive and need to know what to do about attendance.,health_wellness,high,chat,undergraduate,9
+MSG-01396,My schedule has teh wrong lab section and I need it fixed.,registration,high,web_form,undergraduate,18
+MSG-01411,i uploaded fafsa documents but the portal still says incomplete.,financial_aid,low,web_form,online,20
+MSG-01513,There is no hot water in my dorm and the work order is still pending. thx,housing,low,chat,online,1
+MSG-00995,"Please let me know where this request shoul go. Also, the information page is confusing.",general,low,web_form,online,17
+MSG-01436,Can I move roms because the noise is affecting my sleep?,housing,medium,email,undergraduate,8
+MSG-00373,I uploaded FAFSA documents but the portal sill says incomplete.,financial_aid,high,email,undergraduate,12
+MSG-00778,need help asap,health_wellness,low,email,international,22
+MSG-00712,"My aid package still has not posted and tuition is due in two days. Also, the loan page is confusing.",financial_aid,high,web_form,online,19
+MSG-01534,my aid package still has not posted and tuition is due in two days.!!,financial_aid,low,chat,online,3
+MSG-01550,I cannot register for ENG 201 because there is a hold on my account.!!,registration,medium,chat,international,2
+MSG-01500,"Hi team, Can an advisor check whether I am on track to graduate? I already checked the student portal and could not find a clear answer",academic_advising,medium,email,online,21
+MSG-00879,"I am not sure which requirement CS 150 satisfies for my major. Also, the graduation page is confusing. when you have time.",academic_advising,low,web_form,undergraduate,7
+MSG-00024,i cannot register for bio 101 because there is a hold on my account.,registration,medium,web_form,international,14
+MSG-00238,"I want to change majors and need to know the next step. Also, the requirement page is confusing.",academic_advising,low,web_form,international,17
+MSG-00399,I am not sure which requirement CS 150 satisfies for my major. not urgent.,academic_advising,low,web_form,online,8
+MSG-01608,I uploaded FAFSA documents but the portal still says incomplete.,financial_aid,high,email,international,16
+MSG-01021,"My campus login keeps failing even after I reset my password. Also, the MFA page is confusing. I am stuck.",technical_support,medium,web_form,international,7
+MSG-01433,Please let me know where this request should go.,general,medium,chat,undergraduate,6
+MSG-01403,My campus login keeps failing even after I reset my password. just checking.,technical_support,low,web_form,online,4
+MSG-00748,I need approval for an overload because this is my final semester.,academic_advising,low,chat,graduate,3
+MSG-00261,I need approval for an overloa because this is my final semester not urgent,academic_advising,low,web_form,undergraduate,2
+MSG-00844,i want to change majors and need to know the next step.,academic_advising,medium,email,international,7
+MSG-01080,Can you point me to teh rigt office for a campus policy issue? next week is fine.,general,low,web_form,online,2
+MSG-00881,"Hi team, I need approval for an overload because this is my final semester Also, the overload page is confusing I am stuck I already checked the student portal and could not find a clear answer :/",academic_advising,medium,email,undergraduate,1
+MSG-00970,My campus login keeps failing even after I reset my password.,technical_support,medium,chat,online,14
+MSG-00696,My roommate assignment changed and I never received an explanation. I might lose access. pls,housing,high,web_form,graduate,15
+MSG-01686,confused about this,registration,medium,email,online,15
+MSG-00906,I have a question about student services and could use guidance.,general,medium,web_form,graduate,13
+MSG-00813,i want to change majors and need to know the next step.,academic_advising,low,chat,graduate,8
+MSG-01605,my campus login keeps failing even after i reset my password.,technical_support,high,chat,online,12
+MSG-01683,confused about this,financial_aid,low,chat,graduate,14
+MSG-00418,The waitlist says open but the system will not let me add the class.,registration,medium,web_form,undergraduate,11
+MSG-01795,"the portal shows an error code when i try to submit teh form. also, teh error page is confusing.",technical_support,medium,email,undergraduate,5
+MSG-01068,My roommate assignment changed and I never received an explanation.,housing,low,chat,international,15
+MSG-00243,I need approval for an overload becuse this is my final semester.,academic_advising,low,chat,undergraduate,3
+MSG-01264,"Hi team, Please let me know where this request should go. I already checked the student portal and could not find a clear answer.???",general,high,email,graduate,5
+MSG-00560,help :/,housing,medium,email,online,12
+MSG-00607,help,financial_aid,medium,email,graduate,5
+MSG-01172,"Hi team, Hi, I am not sure who to contact about this question. soon. I already checked the student portal and could not find a clear answer.",general,medium,web_form,graduate,10
+MSG-01752,The learning platform will not load my quiz and it is due tomorrow.,technical_support,medium,email,undergraduate,15
+MSG-00228,I have a question about student services and could use guidance.!!,general,medium,chat,graduate,21
+MSG-00610,Can you point me to the right office for a campus policy issue?,general,low,chat,online,20
+MSG-00843,"I need help setting up a payment plan before classes start. Also, the grant page is confusing.???",financial_aid,low,chat,graduate,18
+MSG-00441,my campus login keeps failing even after i reset my password.!!,technical_support,low,chat,online,22
+MSG-01098,"Hi team, The learning platform will not load my quiz and it is due tonight. I already checked the student portal and could not find a clear answer.",technical_support,medium,chat,graduate,1
+MSG-01236,help,academic_advising,low,email,undergraduate,8
+MSG-01007,The learning platform will not load my quiz and it is due this week???,technical_support,medium,chat,online,16
+MSG-00996,I tested positive and need to know what to do about attendance.,health_wellness,low,email,international,6
+MSG-00902,Can an advisor check whether I am on track to graduate?,academic_advising,medium,email,graduate,23
+MSG-00587,"The portal shows an error code when I try to submit the form. Also, the error page is confusing.???",technical_support,medium,chat,graduate,2
+MSG-00514,help,financial_aid,low,web_form,graduate,9
+MSG-01137,the waitlist says open but teh system will not let me add teh class. deadline is tonight.,registration,high,chat,international,15
+MSG-01353,Please let me know where thisrequest should go.,general,low,email,international,17
+MSG-01788,"I need an appointment because I have been feeling overwhelmed all week. Also, the health page is confusing.",health_wellness,low,web_form,graduate,21
+MSG-00567,"hi team, confused about this i already checked the student portal and could not find a clear answer.",financial_aid,low,web_form,international,6
+MSG-01542,My schedule has the wrong lab section and I need it fixed.,registration,high,web_form,international,4
+MSG-01593,"I need approval for an overload bc this is my final semester. Also, the graduation page is confusing.",academic_advising,medium,web_form,undergraduate,14
+MSG-01119,can i move rooms bc the noise is affecting my sleep?,housing,low,chat,online,10
+MSG-00856,"I uploaded FAFSA documents but the portal still says incomplete. Also, the payment page is confusing.",financial_aid,medium,web_form,graduate,11
+MSG-00669,"I need help setting up a payment plan before classes start. Also, the grant page is confusing.",financial_aid,medium,web_form,international,16
+MSG-00904,help,registration,medium,email,undergraduate,9
+MSG-01539,I cannot register for BIO 101 because there is a hold on my account. I am stuck.,registration,medium,web_form,undergraduate,2
+MSG-00951,"hi team, need help asap i already checked the student portal and could not find a clear answer.",health_wellness,high,email,international,18
+MSG-00434,"can i move rooms because the noise is affecting my sleep? also, the roommate page is confusing. thx",housing,medium,email,online,6
+MSG-01507,confused about this,registration,medium,chat,international,17
+MSG-01735,"Hi team, I need an appointment bc I have been feeling overwhelmed all week. I already checked the student portal and could not find a clear answer.",health_wellness,medium,chat,undergraduate,20
+MSG-00625,"hi team, the learning platform will not load my quiz and it is due in two days. i already checked the student portal and could not find a clear answer. thx",technical_support,medium,chat,online,2
+MSG-01368,The learning platform will not load my quiz and it is due this week. :/,technical_support,medium,email,international,13
+MSG-00468,my aid package still has not posted and tuition is due in two days.,financial_aid,low,web_form,graduate,5
+MSG-00873,I need help setting up a payment plan before classes start thx,financial_aid,low,email,graduate,3
+MSG-00657,i have a question about student service and could use guidance.,general,low,email,undergraduate,17
+MSG-00345,"i want to change majors and need to know the next step. also, the graduation page is confusing.",academic_advising,low,chat,international,23
+MSG-01722,i need approval for an overload bc this is my final semester.,academic_advising,high,email,graduate,21
+MSG-00149,I want to change majors and need to know teh next step.,academic_advising,high,email,online,9
+MSG-00247,"Hi team, The learning platform will not load my quiz and it is due tomorrow. I already checked the student portal and could not find a clear answer.",technical_support,medium,web_form,graduate,2
+MSG-00616,Can someone explain why my scholarshi disappeared from the bill? I am stuck,financial_aid,medium,chat,undergraduate,6
+MSG-00615,"My aid package still has not posted and tuition is due in two days. Also, the grant page is confusing. not urgent.",financial_aid,low,web_form,online,1
+MSG-00633,"I cannot register for MATH 220 because there is a hold on my account. Also, the waitlist page is confusing.",registration,medium,email,online,2
+MSG-00396,"The waitlist says open but the system will not let me add the class. Also, the hold page is confusing.",registration,medium,web_form,undergraduate,7
+MSG-00424,"I cannot register for CS 150 because there is a hold on my account. Also, the add page is confusing.",registration,low,email,graduate,6
+MSG-01494,I cannot access email from my phone after the security update.,technical_support,high,chat,graduate,9
+MSG-00543,"I am not sure which requirement BIO 101 satisfies for my major. Also, the credits page is confusing.",academic_advising,low,email,online,19
+MSG-00472,"Hi team, There is no hot water in my dorm and the work order is still pending. Also, the dorm page is confusing. I already checked the student portal and could not find a clear answer.",housing,medium,chat,online,21
+MSG-00966,"I cannot access email from my phone after the security update. Also, the error page is confusing.",technical_support,low,email,undergraduate,14
+MSG-00130,can i move rooms because the noise is affecting my sleep?,housing,low,web_form,undergraduate,18
+MSG-00289,"The learning platform will not load my quiz and it is due tomorrow. Also, the email page is confusing.",technical_support,low,chat,online,22
+MSG-01475,I am not sure which requirement HIST 305 satisfies for my major.,academic_advising,medium,web_form,graduate,20
+MSG-01010,"My schedule has the wrong lab section and I need it fixed. Also, the add page is confusing. thx",registration,high,web_form,international,21
+MSG-00295,"I need approval for an overload because this is my final semester. Also, the degree audit page is confusing.",academic_advising,low,web_form,international,23
+MSG-01784,"Hi team, Can you point me to the right office for a campus policy issue? I already checked the student portal and could not find a clear answer.",general,low,email,online,5
+MSG-01638,"The portal shows an error code when I try to submit the form. Also, the password page is confusing.",technical_support,high,chat,graduate,21
+MSG-00864,My aid package still has not posted and tuition is due in two days.,financial_aid,low,web_form,undergraduate,21
+MSG-00334,My roommate assignment changed and I never received an explanation.,housing,high,chat,online,2
+MSG-01376,I need help setting up a payment plan before classes start.,financial_aid,medium,chat,undergraduate,14
+MSG-01016,"hi team, help i already checked the student portal and could not find a clear answer.",academic_advising,medium,email,undergraduate,0
+MSG-01279,"I uploaded FAFSA documents but the portal still saysincomplete Also, the grant page is confusing",financial_aid,medium,chat,graduate,7
+MSG-00075,I need help setting up a payment plan before classes start just checking,financial_aid,low,email,undergraduate,10
+MSG-00047,"The portal shows an error code when I try to submit teh form. Also, teh login page is confusing.???",technical_support,high,email,undergraduate,10
+MSG-00531,My campus login keeps failing even after I reset my password. soon.,technical_support,medium,web_form,international,15
+MSG-00896,my schedule has the wrong lab section and i need it fixed.,registration,low,chat,undergraduate,12
+MSG-01479,please let me know where this request should go.,general,medium,chat,online,6
+MSG-00033,"I need to request housing accommodation documentation review. Also, the dorm page is confusing. pls",housing,medium,web_form,graduate,9
+MSG-00158,"Can I move rooms because the noise is affecting my sleep? Also, te meal plan page is confusing.",housing,low,email,undergraduate,7
+MSG-01612,need help asap,housing,low,chat,international,5
+MSG-00735,My schedule has the wrong lab section and I need it fixed.,registration,high,email,online,10
+MSG-01394,"Hi team, I need an appointment because I have been feeling overwhelmed all week. Also, the health page is confusing. I already checked the student portal and could not find a clear answer.???",health_wellness,low,email,online,20
+MSG-01661,"I need an appointment because I have been feeling overwhelmed all week. Also, the safety page is confusing.",health_wellness,high,chat,international,8
+MSG-00624,I need help setting up a payment plan before classes start.,financial_aid,medium,chat,online,7
+MSG-01319,"Can someone explain why my scholarship disappeared from the bill? Also, the scholarship page i confusing.",financial_aid,medium,chat,international,5
+MSG-01645,"Hi team, Please let me know where this request should go I already checked the student portal and could not find a clear answer",general,medium,chat,undergraduate,19
+MSG-00032,I am worried about a student who said they might hurt themselves. pls,health_wellness,medium,email,international,8
+MSG-01275,"Can someone explain why my scholarship disappeared from the bill? Also, the payment page is confusing.",financial_aid,high,email,undergraduate,8
+MSG-01237,"Hi team, My schedule has the wrong lab section and I need it fixed. soon. I already checked the student portal and could not find a clear answer.",registration,medium,chat,undergraduate,13
+MSG-00379,The learning platform will not load my quiz and it is due tonight.,technical_support,medium,web_form,graduate,5
+MSG-01480,"I cannot register for MATH 220 because there is a hold on my account. Also, the drop page is confusing.",registration,medium,email,international,15
+MSG-00795,"can someone explain why my scholarship disappeared from the bill? also, the refund page is confusing. soon.",financial_aid,medium,chat,international,13
+MSG-01545,I need an appointment because I have been feeling overwhelmed all week. right now.,health_wellness,high,web_form,undergraduate,14
+MSG-00883,"My aid packge still has not posted and tuition is due tomorrow. Also, the scholarship page is confusing.",financial_aid,low,chat,online,9
+MSG-01768,"Hi team, My aid package still has not posted and tuition is due tomorrow. I already checked teh student portal and could not find a clear answer.",financial_aid,medium,web_form,online,18
+MSG-00508,"I want to change majors and need to know the next step. Also, the advisor page is confusing.",academic_advising,low,email,international,11
+MSG-01328,"I need to request housing accommodation documentation review. Also, the roommate page is confusing.",housing,low,web_form,online,19
+MSG-01207,Can I talk to someone today about anxiety and missing classes?,health_wellness,medium,chat,international,16
+MSG-00965,I need to request housing accommodation documentation review.???,housing,low,chat,undergraduate,17
+MSG-01005,The waitlist says open but the system will not let me add the class.!!,registration,low,email,online,12
+MSG-00894,can i talk to someone today about anxiety and missing classes? pls,health_wellness,medium,email,international,2
+MSG-00930,I need an appointment becase I have been feeling overwhelmed all week. soon. thx,health_wellness,medium,web_form,graduate,17
+MSG-01405,"i cannot register for hist 305 because there is a hold on my account. also, the add page is confusing.",registration,low,email,undergraduate,10
+MSG-01173,"hi team, my campus login keeps failing even after i reset my password. i already checked the student portal and could not find a clear answer.",technical_support,low,chat,undergraduate,19
+MSG-00349,"Can I move rooms because the noise is affecting my sleep? Also, the work order page is confusing.",housing,low,web_form,graduate,0
+MSG-00860,I tested positive and need to know what to do about attendance,health_wellness,high,chat,international,20

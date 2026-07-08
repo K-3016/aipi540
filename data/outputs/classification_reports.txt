@@ -1,0 +1,101 @@
+Model: majority_baseline
+
+Category report
+
+                   precision    recall  f1-score   support
+
+    financial_aid       0.17      1.00      0.29        45
+     registration       0.00      0.00      0.00        43
+          housing       0.00      0.00      0.00        34
+academic_advising       0.00      0.00      0.00        46
+technical_support       0.00      0.00      0.00        44
+  health_wellness       0.00      0.00      0.00        26
+          general       0.00      0.00      0.00        32
+
+         accuracy                           0.17       270
+        macro avg       0.02      0.14      0.04       270
+     weighted avg       0.03      0.17      0.05       270
+
+
+Urgency report
+
+              precision    recall  f1-score   support
+
+         low       0.42      1.00      0.59       113
+      medium       0.00      0.00      0.00       107
+        high       0.00      0.00      0.00        50
+
+    accuracy                           0.42       270
+   macro avg       0.14      0.33      0.20       270
+weighted avg       0.18      0.42      0.25       270
+
+
+================================================================================
+
+Model: tfidf_logistic_regression
+
+Category report
+
+                   precision    recall  f1-score   support
+
+    financial_aid       1.00      0.96      0.98        45
+     registration       0.98      0.93      0.95        43
+          housing       0.89      0.91      0.90        34
+academic_advising       0.91      0.91      0.91        46
+technical_support       1.00      0.89      0.94        44
+  health_wellness       0.81      1.00      0.90        26
+          general       0.94      1.00      0.97        32
+
+         accuracy                           0.94       270
+        macro avg       0.93      0.94      0.94       270
+     weighted avg       0.94      0.94      0.94       270
+
+
+Urgency report
+
+              precision    recall  f1-score   support
+
+         low       0.64      0.61      0.62       113
+      medium       0.59      0.53      0.56       107
+        high       0.42      0.56      0.48        50
+
+    accuracy                           0.57       270
+   macro avg       0.55      0.57      0.56       270
+weighted avg       0.58      0.57      0.57       270
+
+
+================================================================================
+
+Model: distilbert_transformer
+
+Category report
+
+                   precision    recall  f1-score   support
+
+    financial_aid       0.96      0.96      0.96        45
+     registration       1.00      0.93      0.96        43
+          housing       1.00      0.88      0.94        34
+academic_advising       0.78      1.00      0.88        46
+technical_support       1.00      0.89      0.94        44
+  health_wellness       1.00      0.96      0.98        26
+          general       1.00      1.00      1.00        32
+
+         accuracy                           0.94       270
+        macro avg       0.96      0.95      0.95       270
+     weighted avg       0.96      0.94      0.95       270
+
+
+Urgency report
+
+              precision    recall  f1-score   support
+
+         low       0.45      0.79      0.58       113
+      medium       0.43      0.30      0.35       107
+        high       0.00      0.00      0.00        50
+
+    accuracy                           0.45       270
+   macro avg       0.30      0.36      0.31       270
+weighted avg       0.36      0.45      0.38       270
+
+
+================================================================================
