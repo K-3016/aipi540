@@ -6,8 +6,6 @@ Portions of this file were developed with assistance from OpenAI ChatGPT/Codex a
 
 from __future__ import annotations
 
-import base64
-import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -25,45 +23,31 @@ EXAMPLE_MESSAGES = [
 
 
 def candidate_model_paths(model_path: Path = CLASSICAL_MODEL_PATH) -> list[Path]:
-    """Return likely binary model locations across local and hosted layouts."""
+    """Return likely model locations across local and Hugging Face layouts."""
 
-    package_root = Path(__file__).resolve().parents[2]
-    current_root = Path.cwd()
-    candidates = [
-        model_path,
-        PROJECT_ROOT / "models" / model_path.name,
-        package_root / "models" / model_path.name,
-        current_root / "models" / model_path.name,
-        Path("/app/models") / model_path.name,
-    ]
-    return list(dict.fromkeys(candidates))
-
-
-def candidate_encoded_model_paths(model_path: Path = CLASSICAL_MODEL_PATH) -> list[Path]:
-    """Return likely text-encoded model locations across local and hosted layouts."""
-
-    return [path.with_suffix(path.suffix + ".b64") for path in candidate_model_paths(model_path)]
+    return list(
+        dict.fromkeys(
+            [
+                model_path,
+                PROJECT_ROOT / "models" / model_path.name,
+                Path.cwd() / "models" / model_path.name,
+                Path("/app/models") / model_path.name,
+            ]
+        )
+    )
 
 
 def resolve_deployed_model_path(model_path: Path = CLASSICAL_MODEL_PATH) -> Path | None:
-    """Return a loadable model path, decoding the text artifact when needed."""
+    """Return the trained model path using robust repo-root based lookup."""
 
     for candidate_path in candidate_model_paths(model_path):
         if candidate_path.exists():
             return candidate_path
-
-    for encoded_path in candidate_encoded_model_paths(model_path):
-        if encoded_path.exists():
-            decoded_path = Path(tempfile.gettempdir()) / model_path.name
-            if not decoded_path.exists():
-                encoded_text = encoded_path.read_text(encoding="ascii")
-                decoded_path.write_bytes(base64.b64decode(encoded_text))
-            return decoded_path
     return None
 
 
 def model_available(model_path: Path = CLASSICAL_MODEL_PATH) -> bool:
-    """Return whether the deployed model artifact exists or can be decoded."""
+    """Return whether the deployed model artifact exists."""
 
     return resolve_deployed_model_path(model_path) is not None
 
@@ -71,12 +55,11 @@ def model_available(model_path: Path = CLASSICAL_MODEL_PATH) -> bool:
 def model_search_diagnostics(model_path: Path = CLASSICAL_MODEL_PATH) -> str:
     """Return a readable list of model paths checked during deployment."""
 
-    checked_paths = candidate_model_paths(model_path) + candidate_encoded_model_paths(model_path)
-    return "\n".join(str(path) for path in checked_paths)
+    return "\n".join(str(path) for path in candidate_model_paths(model_path))
 
 
 def load_deployed_model(model_path: Path = CLASSICAL_MODEL_PATH) -> Any:
-    """Load the deployed classical model."""
+    """Load the deployed TF-IDF Logistic Regression model."""
 
     resolved_model_path = resolve_deployed_model_path(model_path)
     if resolved_model_path is None:
