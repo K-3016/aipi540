@@ -9,7 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from campus_triage.config import CATEGORY_LABELS, CLASSICAL_MODEL_PATH, PROJECT_ROOT, ROUTING_RECOMMENDATIONS, URGENCY_LABELS
+from campus_triage.config import CATEGORY_LABELS, ROUTING_RECOMMENDATIONS, URGENCY_LABELS
 from campus_triage.features import keyword_explanation
 from campus_triage.models import load_dual_classifier
 
@@ -22,50 +22,36 @@ EXAMPLE_MESSAGES = [
 ]
 
 
-def candidate_model_paths(model_path: Path = CLASSICAL_MODEL_PATH) -> list[Path]:
-    """Return likely model locations across local and Hugging Face layouts."""
-
-    return list(
-        dict.fromkeys(
-            [
-                model_path,
-                PROJECT_ROOT / "models" / model_path.name,
-                Path.cwd() / "models" / model_path.name,
-                Path("/app/models") / model_path.name,
-            ]
-        )
-    )
+ROOT_DIR = Path(__file__).resolve().parents[2]
+MODEL_PATH = ROOT_DIR / "models" / "tfidf_logistic_regression.joblib"
 
 
-def resolve_deployed_model_path(model_path: Path = CLASSICAL_MODEL_PATH) -> Path | None:
-    """Return the trained model path using robust repo-root based lookup."""
+def resolve_deployed_model_path(model_path: Path = MODEL_PATH) -> Path | None:
+    """Return the trained model path from the repository root."""
 
-    for candidate_path in candidate_model_paths(model_path):
-        if candidate_path.exists():
-            return candidate_path
+    if model_path.exists():
+        return model_path
     return None
 
 
-def model_available(model_path: Path = CLASSICAL_MODEL_PATH) -> bool:
+def model_available(model_path: Path = MODEL_PATH) -> bool:
     """Return whether the deployed model artifact exists."""
 
     return resolve_deployed_model_path(model_path) is not None
 
 
-def model_search_diagnostics(model_path: Path = CLASSICAL_MODEL_PATH) -> str:
-    """Return a readable list of model paths checked during deployment."""
+def model_search_diagnostics(model_path: Path = MODEL_PATH) -> str:
+    """Return the absolute model path checked during deployment."""
 
-    return "\n".join(str(path) for path in candidate_model_paths(model_path))
+    return str(model_path)
 
 
-def load_deployed_model(model_path: Path = CLASSICAL_MODEL_PATH) -> Any:
+def load_deployed_model(model_path: Path = MODEL_PATH) -> Any:
     """Load the deployed TF-IDF Logistic Regression model."""
 
     resolved_model_path = resolve_deployed_model_path(model_path)
     if resolved_model_path is None:
-        raise FileNotFoundError(
-            "No deployed model artifact found. Checked these paths:\n" + model_search_diagnostics(model_path)
-        )
+        raise FileNotFoundError(f"No deployed model artifact found at {model_path}")
     return load_dual_classifier(str(resolved_model_path))
 
 
