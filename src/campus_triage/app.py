@@ -20,7 +20,7 @@ for import_path in (SRC_DIR, ROOT_DIR):
 import streamlit as st
 
 from campus_triage.config import CATEGORY_LABELS, URGENCY_LABELS
-from campus_triage.predict import EXAMPLE_MESSAGES, load_deployed_model, model_available, predict_message
+from campus_triage.predict import EXAMPLE_MESSAGES, load_deployed_model, model_available, model_search_diagnostics, predict_message
 
 
 CUSTOM_CSS = """
@@ -354,7 +354,9 @@ def run_app() -> None:
     render_status_strip()
 
     if not model_available():
-        st.error("No trained model found. Run `make data` and `make train`, then relaunch with `streamlit run main.py`.")
+        st.error("No trained model artifact was found for inference.")
+        st.caption("The app checked these local and Hugging Face deployment paths:")
+        st.code(model_search_diagnostics())
         st.stop()
 
     model = load_deployed_model()

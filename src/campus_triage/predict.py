@@ -11,12 +11,10 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from campus_triage.config import CATEGORY_LABELS, CLASSICAL_MODEL_PATH, ROUTING_RECOMMENDATIONS, URGENCY_LABELS
+from campus_triage.config import CATEGORY_LABELS, CLASSICAL_MODEL_PATH, PROJECT_ROOT, ROUTING_RECOMMENDATIONS, URGENCY_LABELS
 from campus_triage.features import keyword_explanation
 from campus_triage.models import load_dual_classifier
 
-
-ENCODED_CLASSICAL_MODEL_PATH = CLASSICAL_MODEL_PATH.with_suffix(CLASSICAL_MODEL_PATH.suffix + ".b64")
 
 EXAMPLE_MESSAGES = [
     "My FAFSA documents still say incomplete and tuition is due tomorrow. Can someone help?",
@@ -26,19 +24,42 @@ EXAMPLE_MESSAGES = [
 ]
 
 
+def candidate_model_paths(model_path: Path = CLASSICAL_MODEL_PATH) -> list[Path]:
+    """Return likely binary model locations across local and hosted layouts."""
+
+    package_root = Path(__file__).resolve().parents[2]
+    current_root = Path.cwd()
+    candidates = [
+        model_path,
+        PROJECT_ROOT / "models" / model_path.name,
+        package_root / "models" / model_path.name,
+        current_root / "models" / model_path.name,
+        Path("/app/models") / model_path.name,
+    ]
+    return list(dict.fromkeys(candidates))
+
+
+def candidate_encoded_model_paths(model_path: Path = CLASSICAL_MODEL_PATH) -> list[Path]:
+    """Return likely text-encoded model locations across local and hosted layouts."""
+
+    return [path.with_suffix(path.suffix + ".b64") for path in candidate_model_paths(model_path)]
+
+
 def resolve_deployed_model_path(model_path: Path = CLASSICAL_MODEL_PATH) -> Path | None:
     """Return a loadable model path, decoding the text artifact when needed."""
 
-    if model_path.exists():
-        return model_path
-    if not ENCODED_CLASSICAL_MODEL_PATH.exists():
-        return None
+    for candidate_path in candidate_model_paths(model_path):
+        if candidate_path.exists():
+            return candidate_path
 
-    decoded_path = Path(tempfile.gettempdir()) / model_path.name
-    if not decoded_path.exists():
-        encoded_text = ENCODED_CLASSICAL_MODEL_PATH.read_text(encoding="ascii")
-        decoded_path.write_bytes(base64.b64decode(encoded_text))
-    return decoded_path
+    for encoded_path in candidate_encoded_model_paths(model_path):
+        if encoded_path.exists():
+            decoded_path = Path(tempfile.gettempdir()) / model_path.name
+            if not decoded_path.exists():
+                encoded_text = encoded_path.read_text(encoding="ascii")
+                decoded_path.write_bytes(base64.b64decode(encoded_text))
+            return decoded_path
+    return None
 
 
 def model_available(model_path: Path = CLASSICAL_MODEL_PATH) -> bool:
@@ -47,13 +68,20 @@ def model_available(model_path: Path = CLASSICAL_MODEL_PATH) -> bool:
     return resolve_deployed_model_path(model_path) is not None
 
 
+def model_search_diagnostics(model_path: Path = CLASSICAL_MODEL_PATH) -> str:
+    """Return a readable list of model paths checked during deployment."""
+
+    checked_paths = candidate_model_paths(model_path) + candidate_encoded_model_paths(model_path)
+    return "\n".join(str(path) for path in checked_paths)
+
+
 def load_deployed_model(model_path: Path = CLASSICAL_MODEL_PATH) -> Any:
     """Load the deployed classical model."""
 
     resolved_model_path = resolve_deployed_model_path(model_path)
     if resolved_model_path is None:
         raise FileNotFoundError(
-            f"Model not found at {model_path} or {ENCODED_CLASSICAL_MODEL_PATH}. Run `make data` and `make train` before launching the app."
+            "No deployed model artifact found. Checked these paths:\n" + model_search_diagnostics(model_path)
         )
     return load_dual_classifier(str(resolved_model_path))
 
