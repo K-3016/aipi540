@@ -17,6 +17,7 @@ models/*.pth
 models/*.pkl
 models/*.joblib
 !models/.gitkeep
+!models/*.joblib.b64
 data/raw/tmp*
 data/raw/*.tmp
 data/processed/*.tmp

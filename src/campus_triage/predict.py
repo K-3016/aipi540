@@ -6,6 +6,8 @@ Portions of this file were developed with assistance from OpenAI ChatGPT/Codex a
 
 from __future__ import annotations
 
+import base64
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +15,8 @@ from campus_triage.config import CATEGORY_LABELS, CLASSICAL_MODEL_PATH, ROUTING_
 from campus_triage.features import keyword_explanation
 from campus_triage.models import load_dual_classifier
 
+
+ENCODED_CLASSICAL_MODEL_PATH = CLASSICAL_MODEL_PATH.with_suffix(CLASSICAL_MODEL_PATH.suffix + ".b64")
 
 EXAMPLE_MESSAGES = [
     "My FAFSA documents still say incomplete and tuition is due tomorrow. Can someone help?",
@@ -22,20 +26,36 @@ EXAMPLE_MESSAGES = [
 ]
 
 
-def model_available(model_path: Path = CLASSICAL_MODEL_PATH) -> bool:
-    """Return whether the deployed model artifact exists."""
+def resolve_deployed_model_path(model_path: Path = CLASSICAL_MODEL_PATH) -> Path | None:
+    """Return a loadable model path, decoding the text artifact when needed."""
 
-    return model_path.exists()
+    if model_path.exists():
+        return model_path
+    if not ENCODED_CLASSICAL_MODEL_PATH.exists():
+        return None
+
+    decoded_path = Path(tempfile.gettempdir()) / model_path.name
+    if not decoded_path.exists():
+        encoded_text = ENCODED_CLASSICAL_MODEL_PATH.read_text(encoding="ascii")
+        decoded_path.write_bytes(base64.b64decode(encoded_text))
+    return decoded_path
+
+
+def model_available(model_path: Path = CLASSICAL_MODEL_PATH) -> bool:
+    """Return whether the deployed model artifact exists or can be decoded."""
+
+    return resolve_deployed_model_path(model_path) is not None
 
 
 def load_deployed_model(model_path: Path = CLASSICAL_MODEL_PATH) -> Any:
     """Load the deployed classical model."""
 
-    if not model_path.exists():
+    resolved_model_path = resolve_deployed_model_path(model_path)
+    if resolved_model_path is None:
         raise FileNotFoundError(
-            f"Model not found at {model_path}. Run `make data` and `make train` before launching the app."
+            f"Model not found at {model_path} or {ENCODED_CLASSICAL_MODEL_PATH}. Run `make data` and `make train` before launching the app."
         )
-    return load_dual_classifier(str(model_path))
+    return load_dual_classifier(str(resolved_model_path))
 
 
 def predict_message(message_text: str, model: Any | None = None) -> dict[str, Any]:

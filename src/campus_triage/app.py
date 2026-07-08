@@ -7,6 +7,15 @@ Portions of this file were developed with assistance from OpenAI ChatGPT/Codex a
 from __future__ import annotations
 
 import html
+import sys
+from pathlib import Path
+
+SRC_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = SRC_DIR.parent
+
+for import_path in (SRC_DIR, ROOT_DIR):
+    if str(import_path) not in sys.path:
+        sys.path.insert(0, str(import_path))
 
 import streamlit as st
 

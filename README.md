@@ -1,3 +1,13 @@
+---
+title: Retail Food Freshness Classifier
+emoji: 🥗
+colorFrom: green
+colorTo: blue
+sdk: streamlit
+sdk_version: 1.47.0
+app_file: src/campus_triage/app.py
+pinned: false
+---
 # Campus Support Message Triage Assistant
 
 Campus Support Message Triage Assistant is a complete NLP module project that classifies synthetic student support messages by support category and urgency. The system is designed to help a university support office route messages faster while keeping human review in the loop.
