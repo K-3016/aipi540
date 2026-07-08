@@ -151,7 +151,8 @@ CUSTOM_CSS = """
         padding-top: .8rem;
     }
     textarea, .stTextArea textarea {
-        color: #111827 !important;
+        color: #0f172a !important;
+        -webkit-text-fill-color: #0f172a !important;
         background-color: #ffffff !important;
         border: 1px solid #94a3b8 !important;
         border-radius: 8px !important;
@@ -159,20 +160,41 @@ CUSTOM_CSS = """
         font-size: 1rem !important;
         line-height: 1.45 !important;
     }
+    .stTextArea textarea::placeholder {
+        color: #64748b !important;
+        -webkit-text-fill-color: #64748b !important;
+    }
     .stTextArea textarea:focus {
         border-color: #0f766e !important;
         box-shadow: 0 0 0 3px rgba(15, 118, 110, .16) !important;
     }
-    div[data-testid="stSelectbox"] div { color: #111827; }
+    div[data-testid="stSelectbox"] div { color: #0f172a; }
     .stButton > button {
         border-radius: 8px !important;
         font-weight: 850 !important;
-        border: 1px solid #0f766e !important;
+        border: 1px solid #cbd5e1 !important;
         min-height: 2.75rem;
+        background: #f8fafc !important;
+        color: #0f172a !important;
+        -webkit-text-fill-color: #0f172a !important;
+    }
+    .stButton > button:hover {
+        background: #e0f2fe !important;
+        border-color: #0284c7 !important;
+        color: #075985 !important;
+        -webkit-text-fill-color: #075985 !important;
     }
     .stButton > button[kind="primary"] {
         background: #0f766e !important;
-        color: white !important;
+        border-color: #0f766e !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+    }
+    .stButton > button[kind="primary"]:hover {
+        background: #115e59 !important;
+        border-color: #115e59 !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
     }
     @media (max-width: 800px) {
         .status-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
