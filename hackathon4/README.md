@@ -363,6 +363,15 @@ streamlit run main.py
 
 For Streamlit Community Cloud or another host:
 
+The deployed app defaults to **Saved held-out comparisons**. This mode reads genuine
+baseline and LoRA-adapted predictions produced by `python main.py evaluate`; it does
+not regenerate them in the web process. This avoids loading the 1.5B base model into
+Streamlit Community Cloud's limited memory. The interface labels this behavior
+explicitly and trims only prompt-role spillover after the first generated response.
+
+Choose **Live inference (local/GPU only)** only when the host has enough memory. Live
+arbitrary-text inference remains available locally and in Colab/Kaggle GPU sessions.
+
 1. Regenerate the adapter in a GPU environment.
 2. Include the small adapter configuration and adapter weights in the repository, or store them in approved model storage. Do not include a duplicate base model or tokenizer.
 3. Do not commit large weights or private data.
