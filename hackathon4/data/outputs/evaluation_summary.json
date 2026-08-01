@@ -1,0 +1,62 @@
+{
+  "test_examples": 50,
+  "notes": {
+    "rouge": "Lexical overlap can penalize valid paraphrases.",
+    "readability": "Lower grade level is not evidence of medical accuracy.",
+    "safety": "Safety checks are transparent heuristics, not clinical validation."
+  },
+  "models": {
+    "baseline": {
+      "rouge": {
+        "rouge1": 0.16014064470066494,
+        "rouge2": 0.029433823004324813,
+        "rougeL": 0.10884012944818044
+      },
+      "mean_readability": {
+        "flesch_reading_ease": NaN,
+        "flesch_kincaid_grade": NaN,
+        "word_count": 116.54,
+        "sentence_count": 7.08,
+        "output_to_input_length_ratio": 6.093163230372465
+      },
+      "safety_flag_counts": {
+        "unsupported_certainty": 1,
+        "loss_of_uncertainty": 1,
+        "new_diagnosis_language": 27,
+        "new_treatment_recommendation": 14,
+        "missing_numbers": 34,
+        "missing_anatomy": 23,
+        "negation_change": 41
+      },
+      "bertscore": {
+        "status": "skipped by user"
+      }
+    },
+    "finetuned": {
+      "rouge": {
+        "rouge1": 0.31259334405745326,
+        "rouge2": 0.29322779457807635,
+        "rougeL": 0.3082664787544492
+      },
+      "mean_readability": {
+        "flesch_reading_ease": NaN,
+        "flesch_kincaid_grade": NaN,
+        "word_count": 119.74,
+        "sentence_count": 7.68,
+        "output_to_input_length_ratio": 6.341405657391374
+      },
+      "safety_flag_counts": {
+        "unsupported_certainty": 0,
+        "loss_of_uncertainty": 0,
+        "new_diagnosis_language": 1,
+        "new_treatment_recommendation": 4,
+        "missing_numbers": 0,
+        "missing_anatomy": 1,
+        "negation_change": 46
+      },
+      "bertscore": {
+        "status": "skipped by user"
+      }
+    }
+  }
+}
