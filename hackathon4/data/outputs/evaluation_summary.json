@@ -8,25 +8,25 @@
   "models": {
     "baseline": {
       "rouge": {
-        "rouge1": 0.16014064470066494,
-        "rouge2": 0.029433823004324813,
-        "rougeL": 0.10884012944818044
+        "rouge1": 0.188750089874614,
+        "rouge2": 0.0755491883421285,
+        "rougeL": 0.14719665884424718
       },
       "mean_readability": {
-        "flesch_reading_ease": NaN,
-        "flesch_kincaid_grade": NaN,
-        "word_count": 116.54,
-        "sentence_count": 7.08,
-        "output_to_input_length_ratio": 6.093163230372465
+        "flesch_reading_ease": 45.040208496774376,
+        "flesch_kincaid_grade": 11.801489074798603,
+        "word_count": 120.88,
+        "sentence_count": 6.5,
+        "output_to_input_length_ratio": 6.402144826237663
       },
       "safety_flag_counts": {
-        "unsupported_certainty": 1,
-        "loss_of_uncertainty": 1,
-        "new_diagnosis_language": 27,
-        "new_treatment_recommendation": 14,
-        "missing_numbers": 34,
-        "missing_anatomy": 23,
-        "negation_change": 41
+        "unsupported_certainty": 0,
+        "loss_of_uncertainty": 0,
+        "new_diagnosis_language": 13,
+        "new_treatment_recommendation": 1,
+        "missing_numbers": 17,
+        "missing_anatomy": 4,
+        "negation_change": 36
       },
       "bertscore": {
         "status": "skipped by user"
@@ -34,25 +34,25 @@
     },
     "finetuned": {
       "rouge": {
-        "rouge1": 0.31259334405745326,
-        "rouge2": 0.29322779457807635,
-        "rougeL": 0.3082664787544492
+        "rouge1": 0.25357490804059574,
+        "rouge2": 0.17898946555821238,
+        "rougeL": 0.2242034257887617
       },
       "mean_readability": {
-        "flesch_reading_ease": NaN,
-        "flesch_kincaid_grade": NaN,
-        "word_count": 119.74,
-        "sentence_count": 7.68,
-        "output_to_input_length_ratio": 6.341405657391374
+        "flesch_reading_ease": 64.58665745244365,
+        "flesch_kincaid_grade": 8.552847807002609,
+        "word_count": 121.96,
+        "sentence_count": 7.34,
+        "output_to_input_length_ratio": 6.406725328278355
       },
       "safety_flag_counts": {
         "unsupported_certainty": 0,
         "loss_of_uncertainty": 0,
-        "new_diagnosis_language": 1,
+        "new_diagnosis_language": 9,
         "new_treatment_recommendation": 4,
-        "missing_numbers": 0,
-        "missing_anatomy": 1,
-        "negation_change": 46
+        "missing_numbers": 4,
+        "missing_anatomy": 0,
+        "negation_change": 39
       },
       "bertscore": {
         "status": "skipped by user"

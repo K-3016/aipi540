@@ -131,19 +131,29 @@ def render_streamlit_app() -> None:
 
     mode = st.radio(
         "Demonstration mode",
-        ["Saved held-out comparisons", "Live inference (local/GPU only)"],
+        ["Live rewrite and comparison", "Saved held-out comparisons"],
         horizontal=True,
-        help="Saved mode is the reliable option on memory-limited Streamlit Community Cloud.",
+        help="Live mode runs the trained 0.5B LoRA model. Saved mode shows held-out evaluation evidence.",
     )
 
     if mode == "Saved held-out comparisons":
         _render_saved_comparison(st)
         return
 
-    st.error(
-        "Live inference loads the 1.5B base model and can exceed Streamlit Community "
-        "Cloud's memory limit. Use this mode locally or in a GPU environment."
+    st.info(
+        "Live inference uses Qwen2.5-0.5B with the trained LoRA adapter. The first "
+        "request downloads and loads the model; later requests reuse the cached model."
     )
+    examples = [
+        "MRI demonstrates a 1.8 cm enhancing lesion in the left frontal lobe. Findings are concerning for neoplasm.",
+        "There is mild cardiomegaly without focal airspace consolidation.",
+        "Pathology demonstrates atypical ductal hyperplasia. No invasive carcinoma is identified.",
+    ]
+    selected = st.selectbox(
+        "Safe demonstration examples",
+        ["Enter your own text", *examples],
+    )
+    default_text = "" if selected == "Enter your own text" else selected
     medical_text = st.text_area(
         "Paste a medical statement or report excerpt",
         height=180,
@@ -181,14 +191,14 @@ def render_streamlit_app() -> None:
                     adapted_model,
                     adapted_tokenizer,
                     medical_text,
-                    max_new_tokens=80,
+                    max_new_tokens=48,
                 )
             progress.write("Generating the LoRA-adapted rewrite…")
             finetuned = generate_text(
                 adapted_model,
                 adapted_tokenizer,
                 medical_text,
-                max_new_tokens=80,
+                max_new_tokens=48,
             )
             progress.update(label="Comparison ready", state="complete", expanded=False)
         except Exception as exc:
@@ -197,44 +207,120 @@ def render_streamlit_app() -> None:
             st.error(f"Inference failed: {exc}")
             return
 
-        st.subheader("Original medical text")
-        st.write(medical_text)
-        left, right = st.columns(2)
-        with left:
-            st.subheader("Base-model rewrite")
-            st.write(baseline)
-        with right:
-            st.subheader("Fine-tuned-model rewrite")
-            st.write(finetuned)
+        _render_comparison(st, medical_text, baseline, finetuned)
 
-        rows = []
-        for label, value in (
-            ("Original", medical_text),
-            ("Base model", baseline),
-            ("Fine-tuned model", finetuned),
-        ):
-            metrics = readability_metrics(value)
-            rows.append(
-                {
-                    "Text": label,
-                    "Reading ease": round(metrics["flesch_reading_ease"], 2),
-                    "Grade level": round(metrics["flesch_kincaid_grade"], 2),
-                    "Words": int(metrics["word_count"]),
-                    "Sentences": int(metrics["sentence_count"]),
-                }
-            )
-        st.subheader("Readability comparison")
-        st.dataframe(rows, width="stretch", hide_index=True)
 
-        st.subheader("Safety heuristic flags")
-        flag_left, flag_right = st.columns(2)
-        with flag_left:
-            st.write("Base model")
-            st.json(safety_heuristics(medical_text, baseline))
-        with flag_right:
-            st.write("Fine-tuned model")
-            st.json(safety_heuristics(medical_text, finetuned))
-        st.caption("These rules are screening heuristics only; they cannot establish medical correctness or safety.")
+def _clean_saved_generation(text: str) -> str:
+    """Trim prompt-role spillover while preserving the generated first response."""
+    clean = str(text).strip()
+    for marker in ("Human:", "### Explanation", "### Response"):
+        if marker in clean:
+            clean = clean.split(marker, maxsplit=1)[0].strip()
+    return clean
+
+
+def _render_comparison(st: Any, medical_text: str, baseline: str, finetuned: str) -> None:
+    """Display a paired rewrite, readability metrics, and heuristic safety flags."""
+    st.subheader("Original medical text")
+    st.write(medical_text)
+    left, right = st.columns(2)
+    with left:
+        st.subheader("Base-model rewrite")
+        st.write(baseline)
+    with right:
+        st.subheader("LoRA-adapted rewrite")
+        st.write(finetuned)
+
+    rows = []
+    for label, value in (
+        ("Original", medical_text),
+        ("Base model", baseline),
+        ("LoRA-adapted model", finetuned),
+    ):
+        metrics = readability_metrics(value)
+        rows.append(
+            {
+                "Text": label,
+                "Reading ease": round(metrics["flesch_reading_ease"], 2),
+                "Grade level": round(metrics["flesch_kincaid_grade"], 2),
+                "Words": int(metrics["word_count"]),
+                "Sentences": int(metrics["sentence_count"]),
+            }
+        )
+    st.subheader("Readability comparison")
+    st.dataframe(rows, width="stretch", hide_index=True)
+
+    st.subheader("Safety heuristic flags")
+    flag_left, flag_right = st.columns(2)
+    with flag_left:
+        st.write("Base model")
+        st.json(safety_heuristics(medical_text, baseline))
+    with flag_right:
+        st.write("LoRA-adapted model")
+        st.json(safety_heuristics(medical_text, finetuned))
+    st.caption(
+        "These rules are screening heuristics only; they cannot establish medical "
+        "correctness or safety."
+    )
+
+
+def _render_saved_comparison(st: Any) -> None:
+    """Render genuine predictions generated during the completed evaluation run."""
+    import pandas as pd
+
+    st.info(
+        "Cloud-safe demo: these are previously generated outputs from the pretrained "
+        "base model and the LoRA-adapted model on the same held-out test examples. "
+        "This view does not run live inference."
+    )
+    if not SAVED_COMPARISONS.exists():
+        st.error(
+            "Saved comparisons are unavailable. Run `python main.py evaluate` and "
+            "include data/outputs/comparison_results.csv in the deployment."
+        )
+        return
+
+    @st.cache_data
+    def load_saved_comparisons(path: str) -> Any:
+        frame = pd.read_csv(path)
+        required = {
+            "example_id",
+            "medical_text",
+            "reference_output",
+            "baseline_output",
+            "finetuned_output",
+        }
+        missing = required.difference(frame.columns)
+        if missing:
+            raise ValueError(f"Saved comparison file is missing columns: {sorted(missing)}")
+        return frame
+
+    try:
+        comparisons = load_saved_comparisons(str(SAVED_COMPARISONS))
+    except (OSError, ValueError) as exc:
+        st.error(f"Could not load saved comparisons: {exc}")
+        return
+
+    labels = {
+        index: f"{row.example_id} — {str(row.medical_text)[:95]}"
+        for index, row in comparisons.iterrows()
+    }
+    selected_index = st.selectbox(
+        "Choose a held-out test example",
+        options=list(labels),
+        format_func=labels.get,
+    )
+    selected = comparisons.loc[selected_index]
+    baseline = _clean_saved_generation(selected["baseline_output"])
+    finetuned = _clean_saved_generation(selected["finetuned_output"])
+
+    _render_comparison(st, str(selected["medical_text"]), baseline, finetuned)
+    with st.expander("Reference patient-friendly rewrite"):
+        st.write(selected["reference_output"])
+    st.caption(
+        "Outputs are authentic saved model generations. Prompt-role spillover after "
+        "the first response is trimmed for display; no medical content is rewritten."
+    )
 
 
 def _clean_saved_generation(text: str) -> str:
