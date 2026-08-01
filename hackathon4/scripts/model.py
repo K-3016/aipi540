@@ -24,8 +24,8 @@ except ModuleNotFoundError:  # Supports `python scripts/model.py`.
     from make_dataset import load_jsonl
 
 LOGGER = logging.getLogger(__name__)
-DEFAULT_MODEL = "Qwen/Qwen2.5-1.5B-Instruct"
-DEFAULT_ADAPTER = Path("models/medexplain_lora_adapter")
+DEFAULT_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
+DEFAULT_ADAPTER = Path("models/medexplain_qwen05_lora_adapter")
 DISCLAIMER = (
     "This prototype explains medical terminology for educational purposes. It does not "
     "provide medical advice, diagnosis, or treatment recommendations. AI-generated "
