@@ -14,6 +14,8 @@ data/processed/*
 !data/processed/.gitkeep
 data/outputs/*
 !data/outputs/.gitkeep
+!data/outputs/comparison_results.csv
+!data/outputs/evaluation_summary.json
 wandb/
 runs/
 checkpoints/
