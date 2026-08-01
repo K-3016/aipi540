@@ -6,6 +6,7 @@ import argparse
 import json
 import logging
 import math
+import platform
 import random
 import re
 from collections import Counter
@@ -111,17 +112,24 @@ def load_base_model(
     device = detect_device()
     kwargs: dict[str, Any] = {"trust_remote_code": False}
     if use_4bit:
-        if device != "cuda":
-            raise ValueError("4-bit loading requires a CUDA GPU and bitsandbytes.")
+        cpu_backend = device == "cpu" and platform.system() == "Linux"
+        if device != "cuda" and not cpu_backend:
+            raise ValueError(
+                "4-bit loading requires CUDA or the bitsandbytes Linux CPU backend."
+            )
         try:
             from transformers import BitsAndBytesConfig
 
             kwargs["quantization_config"] = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_quant_type="nf4",
-                bnb_4bit_compute_dtype=torch.bfloat16
-                if torch.cuda.is_bf16_supported()
-                else torch.float16,
+                bnb_4bit_compute_dtype=(
+                    torch.bfloat16
+                    if device == "cuda" and torch.cuda.is_bf16_supported()
+                    else torch.float16
+                    if device == "cuda"
+                    else torch.float32
+                ),
                 bnb_4bit_use_double_quant=True,
             )
             kwargs["device_map"] = "auto"
@@ -140,11 +148,13 @@ def load_base_model(
     if device == "mps":
         model = model.to("mps")
     LOGGER.info("Loaded %s on %s", model_name, device.upper())
-    if device == "cpu":
+    if device == "cpu" and not use_4bit:
         LOGGER.warning(
             "No CUDA or MPS accelerator was detected. Baseline generation can take "
             "many minutes and LoRA training can take hours on CPU."
         )
+    elif device == "cpu" and use_4bit:
+        LOGGER.info("Using 4-bit bitsandbytes CPU loading for constrained deployment.")
     if for_training:
         model.config.use_cache = False
     return model

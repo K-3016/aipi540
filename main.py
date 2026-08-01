@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import platform
 import subprocess
 import sys
 from pathlib import Path
@@ -142,9 +143,10 @@ def render_streamlit_app() -> None:
 
     @st.cache_resource(show_spinner=False)
     def cached_adapted() -> tuple[Any, Any]:
-        return load_adapted_model(DEFAULT_MODEL, DEFAULT_ADAPTER)
+        use_4bit = detect_device() == "cpu" and platform.system() == "Linux"
+        return load_adapted_model(DEFAULT_MODEL, DEFAULT_ADAPTER, use_4bit=use_4bit)
 
-    if st.button("Rewrite and compare", type="primary", use_container_width=True):
+    if st.button("Rewrite and compare", type="primary", width="stretch"):
         if not medical_text.strip():
             st.error("Enter a medical statement before requesting a rewrite.")
             return
@@ -157,8 +159,8 @@ def render_streamlit_app() -> None:
         device = detect_device()
         if device == "cpu":
             st.warning(
-                "Running on CPU. The first request must load a 3.09 GB model and can "
-                "take several minutes; later requests reuse the cached model."
+                "Running on CPU with memory-saving 4-bit loading on Linux. The first "
+                "request can take several minutes; later requests reuse the cached model."
             )
         progress = st.status("Preparing the comparison…", expanded=True)
         try:
@@ -213,7 +215,7 @@ def render_streamlit_app() -> None:
                 }
             )
         st.subheader("Readability comparison")
-        st.dataframe(rows, use_container_width=True, hide_index=True)
+        st.dataframe(rows, width="stretch", hide_index=True)
 
         st.subheader("Safety heuristic flags")
         flag_left, flag_right = st.columns(2)

@@ -22,3 +22,9 @@ checkpoints/
 *.pt
 *.pth
 
+# The trained LoRA adapter is only 8.7 MB and is required by the deployed app.
+# Keep duplicate tokenizer/base-model files ignored; they load from Hugging Face.
+!models/medexplain_lora_adapter/
+models/medexplain_lora_adapter/*
+!models/medexplain_lora_adapter/adapter_config.json
+!models/medexplain_lora_adapter/adapter_model.safetensors

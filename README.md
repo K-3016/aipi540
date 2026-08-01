@@ -1,4 +1,3 @@
-=======
 # MedExplain: Patient-Friendly Medical Language Rewrite Tool
 
 MedExplain is a graduate-level generative AI hackathon prototype that rewrites supplied medical language into a more patient-friendly explanation. It compares an unchanged pretrained instruction model with the same model adapted using LoRA and Hugging Face PEFT.
@@ -365,13 +364,13 @@ streamlit run main.py
 For Streamlit Community Cloud or another host:
 
 1. Regenerate the adapter in a GPU environment.
-2. Store it in approved model storage or attach it during deployment.
+2. Include the small adapter configuration and adapter weights in the repository, or store them in approved model storage. Do not include a duplicate base model or tokenizer.
 3. Do not commit large weights or private data.
 4. Install `requirements.txt`.
 5. Set the entry point to `main.py`.
 6. Display the disclaimer and review hosting logs, retention, and access controls.
 
-Model and adapter files are ignored by Git. If the adapter exceeds repository limits, publish it in an access-controlled model repository with its base-model name and revision, or regenerate it using the documented command.
+The trained 8.7 MB LoRA adapter configuration and weights are allowed by `.gitignore` because the deployed application needs them. Duplicate tokenizer and base-model files remain ignored. Linux CPU deployments automatically request 4-bit bitsandbytes loading to reduce memory; inference can still be slow. If a future adapter exceeds repository limits, publish it in an access-controlled model repository with its base-model name and revision.
 
 ## Disclaimer
 
@@ -380,4 +379,3 @@ This is a hackathon research prototype and has not been clinically validated, re
 ## AI assistance disclosure
 
 Generative AI assisted with repository scaffolding, implementation, synthetic template drafting, tests, and documentation. AI-generated code and examples require human review. Synthetic examples are explicitly labeled, model metrics are not fabricated, and no claim of clinical readiness is made.
->>>>>>> origin/hackathon4
