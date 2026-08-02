@@ -30,3 +30,7 @@ checkpoints/
 models/medexplain_lora_adapter/*
 !models/medexplain_lora_adapter/adapter_config.json
 !models/medexplain_lora_adapter/adapter_model.safetensors
+!models/medexplain_qwen05_lora_adapter/
+models/medexplain_qwen05_lora_adapter/*
+!models/medexplain_qwen05_lora_adapter/adapter_config.json
+!models/medexplain_qwen05_lora_adapter/adapter_model.safetensors
